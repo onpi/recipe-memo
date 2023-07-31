@@ -2,7 +2,14 @@
 FROM node:lts-alpine
 
 WORKDIR /app
-COPY app/ ./
-RUN apk update
 
-CMD ["npm", "run", "start"]
+# パッケージの依存関係をコピー
+COPY app/package*.json ./
+
+# アプリケーションの依存関係をインストール
+RUN npm install
+
+# アプリケーションのソースをコピー
+COPY app/ ./
+
+CMD ["npm", "run", "dev"]
