@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite --mode development",
+    "prod": "vite --mode production",
+    "build:dev": "tsc && vite build --mode development",
+    "build:prod": "tsc && vite build --mode production",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 -h 0.0.0.0",
     "build-storybook": "storybook build",
