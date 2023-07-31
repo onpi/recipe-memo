@@ -1,8 +1,16 @@
 # recipe-memo
 
-## 起動コマンド
+## 環境構築
 ```
+docker compose build
 docker compose up
+```
+[http://localhost:5173/](http://localhost:5173/)
+
+
+## コマンド
+```
+docker compose run frontend [コマンド]
 ```
 
 ## テーブル定義
