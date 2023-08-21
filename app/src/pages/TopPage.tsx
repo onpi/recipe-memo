@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 
 const TopPage = () => {

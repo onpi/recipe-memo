@@ -1,0 +1,48 @@
+$baseColor: #ff9500;
+
+$light1: #f6f8f9;
+$light2: #fbfbfb;
+$light3: #f4f5f7;
+$light4: #d6e4ec;
+$light5: #626969;
+
+$dark1: #dce2e2;
+$dark2: #828282;
+$dark3: #303739;
+$dark4: #1b1e1e;
+$dark5: #151515;
+
+:root {
+  /* ライトモード時 */
+  --mainBg: #{$light1};
+  --baseBtnBg: #{$baseColor};
+  --baseBthText: #fff;
+  --baseInputBg: #{$light2};
+  --baseInputBorder: #{$light4};
+  --baseInputText: #{$light5};
+}
+
+[data-theme='dark'] {
+  /* ダークモード時 */
+  --mainBg: #{$dark4};
+  --baseBtnBg: #{$dark2};
+  --baseBthText: #{$baseColor};
+  --baseInputBg: #{$dark2};
+  --baseInputBorder: #{$dark1};
+  --baseInputText: #{$dark1};
+}
+
+body {
+  background-color: var(--mainBg);
+}
+
+.base_btn {
+  background-color: var(--baseBtnBg);
+  color: var(--baseBthText);
+}
+
+input {
+  border: 1px solid var(--baseInputBorder);
+  background-color: var(--baseInputBg);
+  color: var(--baseInputText);
+}
