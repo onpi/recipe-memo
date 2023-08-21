@@ -1,10 +1,50 @@
 import GetFormDataFunc from 'src/types/form';
 import LoginForm from '../components/LoginForm';
+import registerUser from '../model/accounts';
+import { FirebaseAuthError } from '@/types/firebase';
+import { useTranslation } from 'react-i18next';
 
 const SignInPage = () => {
-  const handleSignIn = (formData: { email: string; password: string }) => {
+  const { t } = useTranslation('auth');
+  const handleSignIn = async (formData: {
+    email: string;
+    password: string;
+  }) => {
     console.log(formData);
-    // ... その他の処理
+    try {
+      const user = await registerUser(formData.email, formData.password);
+      console.log('User registered successfully:', user);
+      // 任意の後続の処理
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'code' in error) {
+        const firebaseError = error as FirebaseAuthError;
+        switch (firebaseError.code) {
+          case 'auth/email-already-in-use':
+            console.log(t('emailAlreadyInUse'));
+            break;
+          case 'auth/weak-password':
+            console.log(t('weakPassword'));
+            break;
+          case 'auth/invalid-email':
+            console.log(t('invalidEmail'));
+            break;
+          case 'auth/user-not-found':
+            console.log(t('userNotFound'));
+            break;
+          case 'auth/user-disabled':
+            console.log(t('userDisabled'));
+            break;
+          case 'auth/wrong-password':
+            console.log(t('wrongPassword'));
+            break;
+          case 'auth/too-many-requests':
+            console.log(t('tooManyRequests'));
+            break;
+          default:
+            console.log(t('unknownError'), firebaseError.message);
+        }
+      }
+    }
   };
   return (
     <>
