@@ -1,6 +1,13 @@
 import { FirebaseAuthError } from '@/types/firebase';
-import { auth, createUserWithEmailAndPassword } from './firebase';
-const registerUser = async (email: string, password: string) => {
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  signInWithEmailAndPassword,
+} from './firebase';
+export const registerUser = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -20,4 +27,57 @@ const registerUser = async (email: string, password: string) => {
   }
 };
 
-export default registerUser;
+// メールアドレスとパスワードでログイン
+export const loginWithEmail = async (email: string, password: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    console.error('Login Error:', error);
+    throw error;
+  }
+};
+
+export const registerGoogleAccounts = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    console.log('Google Success', result);
+    return { user, token };
+  } catch (error) {
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.log('Google Error', error);
+    throw error;
+  }
+};
+export const loginWithGoogleAccounts = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const userCredential = await signInWithPopup(auth, provider);
+    const user = userCredential.user;
+    console.log('Google Success', user);
+
+    return user;
+  } catch (error) {
+    console.error('Google Login Error:', error);
+    throw error;
+  }
+};
+
+export const signOutUser = async () => {
+  try {
+    await signOut(auth);
+    console.log('User signed out successfully');
+  } catch (error) {
+    console.error('Error signing out:', error);
+    throw error;
+  }
+};

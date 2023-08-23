@@ -20,6 +20,7 @@ $dark5: #151515;
   --baseInputBg: #{$light2};
   --baseInputBorder: #{$light4};
   --baseInputText: #{$light5};
+  --baseLinkText: #{$baseColor};
 }
 
 [data-theme='dark'] {
@@ -30,6 +31,7 @@ $dark5: #151515;
   --baseInputBg: #{$dark2};
   --baseInputBorder: #{$dark1};
   --baseInputText: #{$dark1};
+  --baseLinkText: #{$baseColor};
 }
 
 body {
@@ -45,4 +47,9 @@ input {
   border: 1px solid var(--baseInputBorder);
   background-color: var(--baseInputBg);
   color: var(--baseInputText);
+}
+
+.custom_link {
+  color: var(--baseLinkText);
+  text-decoration: underline;
 }

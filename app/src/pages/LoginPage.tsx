@@ -5,10 +5,11 @@ import authHandlers from '../handlers/authHandlers';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const SignInPage = () => {
+const LoginPage = () => {
   const { t } = useTranslation('ui');
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState<string>('');
+
   const loginStatus = (result: any) => {
     if (result.success) {
       navigate('/');
@@ -17,13 +18,21 @@ const SignInPage = () => {
     }
   };
 
-  const signInSubmit = async (getFormData: GetFormDataFunc) => {
-    const result = await authHandlers.singInWithEmailAndPassword(getFormData());
+  const submitLoginWithEmailAndPassword = async (
+    getFormData: GetFormDataFunc
+  ) => {
+    const result = await authHandlers.loginWithEmailAndPassword(getFormData());
+    console.log(result);
     loginStatus(result);
+    if (result.success) {
+      navigate('/');
+    } else {
+      setErrorMessages(result.message);
+    }
   };
 
-  const submitSignInWithGoogle = async () => {
-    const result = await authHandlers.signInWithGoogle();
+  const submitLoginWithGoogle = async () => {
+    const result = await authHandlers.loginWithGoogle();
     loginStatus(result);
   };
   return (
@@ -46,21 +55,20 @@ const SignInPage = () => {
               className="base_btn w-full p-2 rounded-md"
               onClick={(e) => {
                 e.preventDefault();
-                signInSubmit(getFormData);
+                submitLoginWithEmailAndPassword(getFormData);
               }}
             >
-              {t('signin.btn')}
+              ログイン
             </button>
           )}
         />
-
         <p className="my-2">or</p>
         <div className="google_wrap">
           <a
             href="#"
             onClick={async (e) => {
               e.preventDefault();
-              submitSignInWithGoogle();
+              submitLoginWithGoogle();
             }}
           >
             <div className="image_wrap">
@@ -68,12 +76,11 @@ const SignInPage = () => {
             </div>
           </a>
         </div>
-
         <div className="link_wrap mt-4">
           <p className="">
-            {t('signin.alreadyRegistered')}
-            <Link to="/login" className="custom_link">
-              こちら
+            {t('noAccount')}
+            <Link to="/signin" className="custom_link">
+              {t('here')}
             </Link>
           </p>
         </div>
@@ -82,4 +89,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default LoginPage;

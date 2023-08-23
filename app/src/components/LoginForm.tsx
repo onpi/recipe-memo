@@ -11,7 +11,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ renderButton }) => {
 
   const getFormData: GetFormDataFunc = () => ({ email, password });
   return (
-    <form className="w-full px-4">
+    <form className="w-full">
       <div className="mt-4">
         <input
           type="email"
