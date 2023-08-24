@@ -10,7 +10,7 @@ import i18n from 'i18next';
 
 class authHandlers {
   // メールアドレスとパスワードでユーザー登録
-  static async singInWithEmailAndPassword(formData: {
+  static async signInWithEmailAndPassword(formData: {
     email: string;
     password: string;
   }) {
