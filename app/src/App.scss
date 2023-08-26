@@ -21,6 +21,8 @@ $dark5: #151515;
   --baseInputBorder: #{$light4};
   --baseInputText: #{$light5};
   --baseLinkText: #{$baseColor};
+  --navigationColor: #9e9e9e;
+  --navigationActiveColor: #{$baseColor};
 }
 
 [data-theme='dark'] {
@@ -32,6 +34,8 @@ $dark5: #151515;
   --baseInputBorder: #{$dark1};
   --baseInputText: #{$dark1};
   --baseLinkText: #{$baseColor};
+  --navigationColor: #9e9e9e;
+  --navigationActiveColor: #{$baseColor};
 }
 
 body {
@@ -52,4 +56,11 @@ input {
 .custom_link {
   color: var(--baseLinkText);
   text-decoration: underline;
+}
+
+.navigation_color {
+  color: var(--navigationColor);
+  &.active {
+    color: var(--navigationActiveColor);
+  }
 }
