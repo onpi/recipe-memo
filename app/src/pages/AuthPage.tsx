@@ -4,6 +4,7 @@ import LoginForm from '../components/LoginForm';
 import { useTranslation } from 'react-i18next';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { Link } from 'react-router-dom';
+import BaseBtn from '../components/atoms/BaseBtn';
 
 const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
   const { t } = useTranslation('ui');
@@ -25,27 +26,19 @@ const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
         <LoginForm
           renderButton={(getFormData: GetFormDataFunc) =>
             pageType === 'login' ? (
-              <button
+              <BaseBtn
+                label={t('login.btn')} // t('login.btn') と同等のもの
                 type="submit"
-                className="base_btn w-full p-2 rounded-md"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmit(getFormData);
-                }}
-              >
-                {t('login.btn')}
-              </button>
+                className="w-full"
+                onClick={() => handleSubmit(getFormData)}
+              />
             ) : (
-              <button
+              <BaseBtn
+                label={t('signin.btn')} // t('login.btn') と同等のもの
                 type="submit"
-                className="base_btn w-full p-2 rounded-md"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmit(getFormData);
-                }}
-              >
-                {t('signin.btn')}
-              </button>
+                className="w-full"
+                onClick={() => handleSubmit(getFormData)}
+              />
             )
           }
         />

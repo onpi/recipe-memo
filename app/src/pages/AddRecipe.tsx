@@ -1,28 +1,69 @@
+import BaseHeadTitle from '../components/atoms/BaseHeadTitle';
 import BottomNavigation from '../components/BottomNavigation';
-import ArrowSvg from '../components/atoms/ArrowSvg';
-import { Link } from 'react-router-dom';
+
+import TitleAndInput from '../components/molecules/TitleAndInput';
+import InputAndTextarea from '../components/molecules/InputAndTextarea';
+import Header from '../components/organism/Header';
+import BaseBtn from '../components/atoms/BaseBtn';
+import TitleAndTextarea from '../components/molecules/TitleAndTextarea';
 
 const AddRecipe = () => {
+  const handleInputChange = (newValue: string) => {
+    console.log(newValue);
+  };
+  const addIngredients = () => {
+    console.log('aaa');
+  };
   return (
     <>
-      <div className="header product_header py-4 relative flex justify-between">
-        <div className="left flex">
-          <Link to="/" className="w-6 h-6 flex items-center justify-center">
-            <ArrowSvg />
-          </Link>
-          <div className="w-6 h-6"></div>
+      <Header title="新規作成" />
+      <div className="container mx-auto px-4 mt-[72px] pb-[104px]">
+        <div className="mt-6">
+          <TitleAndInput
+            title="料理名"
+            placeholder="料理名"
+            value=""
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="center flex-1 truncate">
-          <h1 className="header_title product_header_title text-center text-normal font-bold">
-            新規作成
-          </h1>
+        <div className="mt-6">
+          <BaseHeadTitle title="材料" />
+          <div className="ingredients flex flex-col mt-2">
+            <InputAndTextarea
+              inputPlaceholder="材料名"
+              inputValue=""
+              onChangeInput={handleInputChange}
+              textareaPlaceholder="材料"
+              textareaValue=""
+              onChangeTextarea={handleInputChange}
+            />
+          </div>
+          <div className="btn_wrap flex flex-col items-center mt-6">
+            <BaseBtn
+              label="材料を追加"
+              type="submit"
+              className="w-[160px]"
+              onClick={() => addIngredients()}
+            />
+          </div>
         </div>
-        <div className="right flex">
-          <div className="w-6 h-6"></div>
-          <div className="w-6 h-6"></div>
+        <div className="mt-6">
+          <TitleAndTextarea
+            title="メモ"
+            placeholder=""
+            value=""
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="btn_wrap flex flex-col items-center mt-6">
+          <BaseBtn
+            label="作成"
+            type="submit"
+            className="w-full"
+            onClick={() => addIngredients()}
+          />
         </div>
       </div>
-
       <BottomNavigation />
     </>
   );

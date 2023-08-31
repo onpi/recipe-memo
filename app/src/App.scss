@@ -25,6 +25,7 @@ $dark5: #151515;
   --navigationActiveColor: #{$baseColor};
   --productHeaderBg: #{$baseColor};
   --productHeaderText: #fff;
+  --headBorderColor: #{$baseColor};
 }
 
 [data-theme='dark'] {
@@ -40,6 +41,7 @@ $dark5: #151515;
   --navigationActiveColor: #{$baseColor};
   --productHeaderBg: #{$dark3};
   --productHeaderText: #{$dark5};
+  --headBorderColor: #{$baseColor};
 }
 
 body {
@@ -74,4 +76,19 @@ input {
 }
 .product_header_title {
   color: var(--productHeaderText);
+}
+
+.recipe_head {
+  position: relative;
+  &::before {
+    background-color: var(--headBorderColor);
+    bottom: 0;
+    content: '';
+    height: 20px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
 }
