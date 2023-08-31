@@ -23,6 +23,8 @@ $dark5: #151515;
   --baseLinkText: #{$baseColor};
   --navigationColor: #9e9e9e;
   --navigationActiveColor: #{$baseColor};
+  --productHeaderBg: #{$baseColor};
+  --productHeaderText: #fff;
 }
 
 [data-theme='dark'] {
@@ -36,6 +38,8 @@ $dark5: #151515;
   --baseLinkText: #{$baseColor};
   --navigationColor: #9e9e9e;
   --navigationActiveColor: #{$baseColor};
+  --productHeaderBg: #{$dark3};
+  --productHeaderText: #{$dark5};
 }
 
 body {
@@ -63,4 +67,11 @@ input {
   &.active {
     color: var(--navigationActiveColor);
   }
+}
+
+.product_header {
+  background-color: var(--productHeaderBg);
+}
+.product_header_title {
+  color: var(--productHeaderText);
 }

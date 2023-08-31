@@ -11,8 +11,8 @@ const TopIconSvg: React.FC<TopIconSvgProps> = ({ color }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M10 0.712585L0 8.82069V21H20V8.82069L10 0.712585ZM18 9.77388V19H2V9.77388L10 3.2874L18 9.77388Z"
       fill={color}
     />

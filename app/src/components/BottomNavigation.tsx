@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import TopIconSvg from '../components/navigation/topIconSvg';
+import TopIconSvg from '../components/navigation/TopIconSvg';
 import AddIconSvg from '../components/navigation/AddIconSvg';
 import SettingsIconSvg from '../components/navigation/SettingsIconSvg';
 
@@ -33,7 +33,7 @@ const BottomNavigation = () => {
             </div>
           </Link>
           <Link
-            to="/"
+            to="/add"
             className="navigation_link flex-1 text-center py-2 flex flex-col items-center justify-center"
           >
             <div className="navigation_item flex">
