@@ -6,8 +6,22 @@ import InputAndTextarea from '../components/molecules/InputAndTextarea';
 import Header from '../components/organism/Header';
 import BaseBtn from '../components/atoms/BaseBtn';
 import TitleAndTextarea from '../components/molecules/TitleAndTextarea';
+import { useState } from 'react';
+import { Recipe } from '@/types/recipe';
 
 const AddRecipe = () => {
+  const [recipe, setRecipe] = useState<Recipe>({
+    user_id: '',
+    title: '',
+    ingredients: [
+      {
+        ingredients_title: '',
+        ingredients_contents: '',
+      },
+    ],
+    memo: '',
+    is_publish: true,
+  });
   const handleInputChange = (newValue: string) => {
     console.log(newValue);
   };
