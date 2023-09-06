@@ -16,7 +16,7 @@ export const registerUser = async (email: string, password: string) => {
     );
     const user = userCredential.user;
     return user;
-  } catch (error: unknown) {
+  } catch (error: any) {
     if (typeof error === 'object' && error !== null && 'code' in error) {
       const firebaseError = error as FirebaseAuthError;
       console.error('Error code:', firebaseError.code);
@@ -37,7 +37,7 @@ export const loginWithEmail = async (email: string, password: string) => {
     );
     const user = userCredential.user;
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login Error:', error);
     throw error;
   }
@@ -48,12 +48,13 @@ export const registerGoogleAccounts = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
+    if (credential === null) throw new Error('Google Login Error');
     const token = credential.accessToken;
     const user = result.user;
     console.log('Google Success', result);
     return { user, token };
-  } catch (error) {
-    const credential = GoogleAuthProvider.credentialFromError(error);
+  } catch (error: any) {
+    // const credential = GoogleAuthProvider.credentialFromError(error);
     console.log('Google Error', error);
     throw error;
   }
@@ -66,7 +67,7 @@ export const loginWithGoogleAccounts = async () => {
     console.log('Google Success', user);
 
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Google Login Error:', error);
     throw error;
   }
@@ -76,7 +77,7 @@ export const signOutUser = async () => {
   try {
     await signOut(auth);
     console.log('User signed out successfully');
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error signing out:', error);
     throw error;
   }

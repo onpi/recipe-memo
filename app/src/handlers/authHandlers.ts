@@ -20,7 +20,7 @@ class authHandlers {
       const user = await registerUser(formData.email, formData.password);
       console.log('User registered successfully:', user);
       return { success: true, data: user };
-    } catch (error: unknown) {
+    } catch (error: any) {
       let errorMessage = t('signin.unknownError');
       if (typeof error === 'object' && error !== null && 'code' in error) {
         const firebaseError = error as FirebaseAuthError;
@@ -103,7 +103,7 @@ class authHandlers {
     try {
       const result = await registerGoogleAccounts();
       return { success: true, data: result.user };
-    } catch (error) {
+    } catch (error: any) {
       return { success: false, message: error.message };
     }
   }
@@ -113,7 +113,7 @@ class authHandlers {
     try {
       const result = await loginWithGoogleAccounts();
       return { success: true, data: result.user };
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.log(error);
       return { success: false, message: error.message };
     }
@@ -123,7 +123,7 @@ class authHandlers {
     try {
       await signOutUser();
       return { success: true };
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.log(error);
       return { success: false, message: error.message };
     }
