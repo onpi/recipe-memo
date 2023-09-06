@@ -8,6 +8,7 @@ import {
   signOut,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -20,9 +21,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-// console.log(auth);
+const db = getFirestore(app);
 
-// export default ;
 export {
   auth,
   createUserWithEmailAndPassword,
@@ -31,4 +31,7 @@ export {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  db,
+  collection,
+  addDoc,
 };

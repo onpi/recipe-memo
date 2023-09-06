@@ -9,8 +9,11 @@ import TitleAndTextarea from '../components/molecules/TitleAndTextarea';
 import { useState, useEffect } from 'react';
 import { Recipe, Ingredient } from '@/types/recipe';
 import { useAuth } from '../context/AuthContext';
+import RecipeHandlers from '@/handlers/recipeHandlers';
+import { useNavigate } from 'react-router-dom';
 
 const AddRecipe = () => {
+  const navigate = useNavigate();
   const { uid } = useAuth();
   const [recipe, setRecipe] = useState<Recipe>({
     user_id: '',
@@ -56,9 +59,23 @@ const AddRecipe = () => {
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
 
-  const createRecipe = () => {
+  const create = () => {
+    // ここでバリデーションチェック(料理名さえ入力されていればOK)
+    if (recipe.title === '') {
+      alert('料理名を入力してください');
+      return;
+    }
+    if (recipe.user_id === '') {
+      alert('ユーザーIDが取得できませんでした');
+      return;
+    }
     console.log('create');
-    console.log(recipe);
+    RecipeHandlers.createRecipe(recipe).then((result) => {
+      console.log(result);
+      if (result.success) {
+        navigate('/');
+      }
+    });
   };
 
   useEffect(() => {
@@ -124,7 +141,7 @@ const AddRecipe = () => {
             label="作成"
             type="submit"
             className="w-full"
-            onClick={() => createRecipe()}
+            onClick={() => create()}
           />
         </div>
       </div>
