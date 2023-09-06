@@ -15,8 +15,6 @@ const TitleAndInput: React.FC<TitleAndInputProps> = ({
   value,
   onChange,
 }) => {
-  const [inputValue, setInputValue] = useState('');
-
   return (
     <>
       <BaseHeadTitle title={title} />

@@ -6,8 +6,8 @@ import InputAndTextarea from '../components/molecules/InputAndTextarea';
 import Header from '../components/organism/Header';
 import BaseBtn from '../components/atoms/BaseBtn';
 import TitleAndTextarea from '../components/molecules/TitleAndTextarea';
-import { useState } from 'react';
-import { Recipe } from '@/types/recipe';
+import { useState, useEffect } from 'react';
+import { Recipe, Ingredient } from '@/types/recipe';
 
 const AddRecipe = () => {
   const [recipe, setRecipe] = useState<Recipe>({
@@ -22,11 +22,46 @@ const AddRecipe = () => {
     memo: '',
     is_publish: true,
   });
-  const handleInputChange = (newValue: string) => {
-    console.log(newValue);
+  // useEffect(() => {
+  //   console.log(recipe);
+  // }, [recipe]);
+
+  const handleChangeContents = (key: string, newValue: string) => {
+    setRecipe({ ...recipe, [key]: newValue });
+  };
+  const handleChangeIngredients = (
+    key: 'ingredients_title' | 'ingredients_contents',
+    index: number,
+    newValue: string
+  ) => {
+    // 1. 現在のingredients配列をコピー。
+    const newIngredients = [...recipe.ingredients];
+
+    // 2. 配列内の特定のオブジェクトをアップデート。
+    const updatedIngredient = { ...newIngredients[index], [key]: newValue };
+    newIngredients[index] = updatedIngredient;
+
+    // 3. 新しい配列で元のrecipeオブジェクトをアップデート。
+    setRecipe({ ...recipe, ingredients: newIngredients });
   };
   const addIngredients = () => {
-    console.log('aaa');
+    // 新しいIngredientオブジェクトを作成
+    const newIngredient: Ingredient = {
+      ingredients_title: '',
+      ingredients_contents: '',
+    };
+
+    // 現在のingredients配列に新しい要素を追加
+    const newIngredients = [...recipe.ingredients, newIngredient];
+
+    // 新しいingredients配列でステートを更新
+    setRecipe({ ...recipe, ingredients: newIngredients });
+  };
+
+  const createRecipe = () => {
+    console.log('create');
+
+    console.log(recipe);
   };
   return (
     <>
@@ -36,22 +71,34 @@ const AddRecipe = () => {
           <TitleAndInput
             title="料理名"
             placeholder="料理名"
-            value=""
-            onChange={handleInputChange}
+            value={recipe.title}
+            onChange={(newValue) => handleChangeContents('title', newValue)}
           />
         </div>
         <div className="mt-6">
           <BaseHeadTitle title="材料" />
-          <div className="ingredients flex flex-col mt-2">
-            <InputAndTextarea
-              inputPlaceholder="材料名"
-              inputValue=""
-              onChangeInput={handleInputChange}
-              textareaPlaceholder="材料"
-              textareaValue=""
-              onChangeTextarea={handleInputChange}
-            />
-          </div>
+
+          {recipe.ingredients.map((ingredient, index) => (
+            <div key={index} className="ingredients flex flex-col mt-4">
+              <InputAndTextarea
+                inputPlaceholder="材料名"
+                inputValue={ingredient.ingredients_title}
+                onChangeInput={(newValue) =>
+                  handleChangeIngredients('ingredients_title', index, newValue)
+                }
+                textareaPlaceholder="材料"
+                textareaValue={ingredient.ingredients_contents}
+                onChangeTextarea={(newValue) =>
+                  handleChangeIngredients(
+                    'ingredients_contents',
+                    index,
+                    newValue
+                  )
+                }
+              />
+            </div>
+          ))}
+
           <div className="btn_wrap flex flex-col items-center mt-6">
             <BaseBtn
               label="材料を追加"
@@ -65,8 +112,8 @@ const AddRecipe = () => {
           <TitleAndTextarea
             title="メモ"
             placeholder=""
-            value=""
-            onChange={handleInputChange}
+            value={recipe.memo}
+            onChange={(newValue) => handleChangeContents('memo', newValue)}
           />
         </div>
         <div className="btn_wrap flex flex-col items-center mt-6">
@@ -74,7 +121,7 @@ const AddRecipe = () => {
             label="作成"
             type="submit"
             className="w-full"
-            onClick={() => addIngredients()}
+            onClick={() => createRecipe()}
           />
         </div>
       </div>
