@@ -112,7 +112,7 @@ class authHandlers {
   static async loginWithGoogle() {
     try {
       const result = await loginWithGoogleAccounts();
-      return { success: true, data: result.user };
+      return { success: true, data: result };
     } catch (error: any) {
       console.log(error);
       return { success: false, message: error.message };
