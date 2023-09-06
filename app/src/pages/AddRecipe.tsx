@@ -8,8 +8,10 @@ import BaseBtn from '../components/atoms/BaseBtn';
 import TitleAndTextarea from '../components/molecules/TitleAndTextarea';
 import { useState, useEffect } from 'react';
 import { Recipe, Ingredient } from '@/types/recipe';
+import { useAuth } from '../context/AuthContext';
 
 const AddRecipe = () => {
+  const { uid } = useAuth();
   const [recipe, setRecipe] = useState<Recipe>({
     user_id: '',
     title: '',
@@ -22,10 +24,6 @@ const AddRecipe = () => {
     memo: '',
     is_publish: true,
   });
-  // useEffect(() => {
-  //   console.log(recipe);
-  // }, [recipe]);
-
   const handleChangeContents = (key: string, newValue: string) => {
     setRecipe({ ...recipe, [key]: newValue });
   };
@@ -60,9 +58,14 @@ const AddRecipe = () => {
 
   const createRecipe = () => {
     console.log('create');
-
     console.log(recipe);
   };
+
+  useEffect(() => {
+    if (uid) {
+      handleChangeContents('user_id', uid);
+    }
+  }, [uid]);
   return (
     <>
       <Header title="新規作成" />
