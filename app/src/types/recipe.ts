@@ -4,6 +4,7 @@ export interface Ingredient {
 }
 
 export interface Recipe {
+  id?: string; // FirestoreのドキュメントID。オプションにしている理由は、新規レシピ作成時にはまだIDが未確定の場合があるからです。
   user_id: string;
   title: string;
   ingredients: Ingredient[];
