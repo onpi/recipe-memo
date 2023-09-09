@@ -45,7 +45,7 @@ const TopPage = () => {
             >
               <button
                 onClick={() => goToDetails(recipe.id)}
-                className="recipe_list_item_title flex-grow text-base text-left"
+                className="recipe_list_item_title base_text flex-grow text-base text-left"
               >
                 {recipe.title}
               </button>

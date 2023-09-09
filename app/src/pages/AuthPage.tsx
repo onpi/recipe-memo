@@ -58,14 +58,14 @@ const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
         </div>
         <div className="link_wrap mt-4">
           {pageType === 'login' ? (
-            <p className="">
+            <p className="base_text">
               {t('noAccount')}
               <Link to="/signin" className="custom_link">
                 {t('here')}
               </Link>
             </p>
           ) : (
-            <p className="">
+            <p className="base_text">
               {t('signin.alreadyRegistered')}
               <Link to="/login" className="custom_link">
                 {t('here')}
