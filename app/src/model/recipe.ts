@@ -1,4 +1,13 @@
-import { db, collection, addDoc, getDocs, query, where } from './firebase';
+import {
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  doc,
+  getDoc,
+} from './firebase';
 import { Recipe } from '@/types/recipe';
 
 export const create = async (recipe: Recipe) => {
@@ -30,9 +39,27 @@ export const getList = async (userId: string) => {
       recipes.push(recipeData);
     });
 
-    console.log('recipes', recipes);
-
     return recipes;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const getById = async (recipeId: string) => {
+  try {
+    const recipeRef = doc(db, 'recipes', recipeId); // ドキュメントの参照を取得
+    const docSnap = await getDoc(recipeRef); // ドキュメントのスナップショットを取得
+
+    if (docSnap.exists()) {
+      // ドキュメントが存在するかどうかを確認
+      const recipeData = docSnap.data() as Recipe; // ドキュメントのデータを取得
+      recipeData.id = docSnap.id; // ドキュメントIDを追加
+      return recipeData;
+    } else {
+      // ドキュメントが存在しない場合の処理
+      console.warn('No such document!');
+      return null;
+    }
   } catch (error: any) {
     throw error;
   }

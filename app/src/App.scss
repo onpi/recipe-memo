@@ -26,6 +26,7 @@ $dark5: #151515;
   --productHeaderBg: #{$baseColor};
   --productHeaderText: #fff;
   --headBorderColor: #{$baseColor};
+  --recipeItemBg: #fff;
 }
 
 [data-theme='dark'] {
@@ -42,6 +43,7 @@ $dark5: #151515;
   --productHeaderBg: #{$dark3};
   --productHeaderText: #{$dark5};
   --headBorderColor: #{$baseColor};
+  --recipeItemBg: #{$dark2};
 }
 
 body {
@@ -92,4 +94,9 @@ textarea {
     top: 0;
     width: 3px;
   }
+}
+
+// トップページ
+.recipe_item {
+  background-color: #fff;
 }

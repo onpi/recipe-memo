@@ -1,4 +1,4 @@
-import { create, getList } from '@/model/recipe';
+import { create, getList, getById } from '@/model/recipe';
 import { Recipe } from '@/types/recipe';
 
 class RecipeHandlers {
@@ -13,10 +13,19 @@ class RecipeHandlers {
     }
   }
   static async getRecipes(userId: string) {
-    console.log('getRecipes', userId);
     try {
       const list = await getList(userId); // ここで await を使います。
       return { success: true, data: list };
+    } catch (error: any) {
+      console.error('Error getting documents: ', error);
+
+      return { success: false, message: error.message };
+    }
+  }
+  static async getRecipeById(recipeId: string) {
+    try {
+      const recipe = await getById(recipeId);
+      return { success: true, data: recipe };
     } catch (error: any) {
       console.error('Error getting documents: ', error);
 

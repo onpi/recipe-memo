@@ -1,52 +1,67 @@
 import BottomNavigation from '../components/BottomNavigation';
 import ThemeToggle from '../components/ThemeToggle';
 import authHandlers from '../handlers/authHandlers';
-import RecipeHandlers from '../handlers/recipeHandlers';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useEffect, useState } from 'react';
-import { Recipe } from '@/types/recipe';
+import DotSvg from '@/components/atoms/DotSvg';
+import { useRecipes } from '../context/RecipeContext';
 
 const TopPage = () => {
   const navigate = useNavigate();
-  const { uid } = useAuth();
-  const [recipeList, setRecipeList] = useState<Recipe[]>([]);
+  const { recipeList } = useRecipes();
+  const goToDetails = (id: string | undefined) => {
+    // 詳細ページへの遷移処理（idはレシピのID）
+    navigate(`/recipe/${id}`);
+  };
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      if (uid) {
-        try {
-          const recipes = await RecipeHandlers.getRecipes(uid);
-          if (recipes.success && recipes.data) {
-            // この行を追加
-            setRecipeList(recipes.data);
-          }
-        } catch (error) {
-          console.error('Failed to fetch recipes:', error);
-          // エラーハンドリングの追加処理が必要であればここに記述
-        }
-      }
-    };
+  const handleOptions = (id: string | undefined) => {
+    // オプションボタンがクリックされたときの処理
+    console.log(`Options for recipe ${id}`);
+  };
 
-    fetchRecipes();
-  }, [uid]);
   return (
     <>
-      <ThemeToggle />
+      <div className="page-wrap container mx-auto px-4">
+        <ThemeToggle />
 
-      <a
-        href="#"
-        onClick={async (e) => {
-          e.preventDefault();
-          const result = await authHandlers.signOut();
-          console.log(result);
+        <a
+          href="#"
+          onClick={async (e) => {
+            e.preventDefault();
+            const result = await authHandlers.signOut();
+            console.log(result);
 
-          // ログアウトが成功したら/loginへリダイレクト
-          navigate('/login');
-        }}
-      >
-        <div className="image_wrap">サインアウト</div>
-      </a>
+            // ログアウトが成功したら/loginへリダイレクト
+            navigate('/login');
+          }}
+        >
+          <div className="image_wrap">サインアウト</div>
+        </a>
+
+        <div className="recipe_list mt-6">
+          {recipeList.map((recipe) => (
+            <div
+              key={recipe.id}
+              className="recipe_item flex justify-between items-center py-3 px-2 shadow-md mt-4"
+            >
+              <button
+                onClick={() => goToDetails(recipe.id)}
+                className="recipe_list_item_title flex-grow text-base text-left"
+              >
+                {recipe.title}
+              </button>
+              <button
+                className="recipe_list_item_options w-6"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOptions(recipe.id);
+                }}
+              >
+                <DotSvg />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
       <BottomNavigation />
     </>
   );

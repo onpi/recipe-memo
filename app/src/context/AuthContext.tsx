@@ -27,10 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Firebaseなどからuidを取得するロジック
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-      console.log(user);
       if (user) {
         const uid = user.uid;
-        console.log('uid', uid);
         setUid(uid);
         if (location.pathname === '/login' || location.pathname === '/signin') {
           navigate('/');
