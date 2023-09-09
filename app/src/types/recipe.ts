@@ -10,4 +10,6 @@ export interface Recipe {
   ingredients: Ingredient[];
   memo: string;
   is_publish: boolean;
+  created_at: any;
+  updated_at: any;
 }

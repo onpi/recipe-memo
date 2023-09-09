@@ -26,8 +26,10 @@ const AddRecipe = () => {
     ],
     memo: '',
     is_publish: true,
+    created_at: null,
+    updated_at: null,
   });
-  const handleChangeContents = (key: string, newValue: string) => {
+  const handleChangeContents = (key: string, newValue: any) => {
     setRecipe({ ...recipe, [key]: newValue });
   };
   const handleChangeIngredients = (
@@ -69,8 +71,13 @@ const AddRecipe = () => {
       alert('ユーザーIDが取得できませんでした');
       return;
     }
-    console.log('create');
-    RecipeHandlers.createRecipe(recipe).then((result) => {
+    const updatedRecipe = {
+      ...recipe,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+
+    RecipeHandlers.createRecipe(updatedRecipe).then((result) => {
       console.log(result);
       if (result.success) {
         navigate('/');
