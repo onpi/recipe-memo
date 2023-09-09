@@ -20,7 +20,7 @@ const TopPage = () => {
 
   return (
     <>
-      <div className="page-wrap container mx-auto px-4">
+      <div className="page-wrap container mx-auto px-4 pb-[104px]">
         <ThemeToggle />
 
         <a
