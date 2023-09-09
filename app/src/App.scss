@@ -27,6 +27,7 @@ $dark5: #151515;
   --productHeaderText: #fff;
   --headBorderColor: #{$baseColor};
   --recipeItemBg: #fff;
+  --baseTextColor: #000;
 }
 
 [data-theme='dark'] {
@@ -44,6 +45,7 @@ $dark5: #151515;
   --productHeaderText: #{$dark5};
   --headBorderColor: #{$baseColor};
   --recipeItemBg: #{$dark2};
+  --baseTextColor: #{$dark1};
 }
 
 body {
@@ -53,6 +55,9 @@ body {
 .base_btn {
   background-color: var(--baseBtnBg);
   color: var(--baseBthText);
+}
+.base_text {
+  color: var(--baseTextColor);
 }
 
 input,

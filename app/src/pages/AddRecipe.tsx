@@ -1,5 +1,5 @@
 import BaseHeadTitle from '../components/atoms/BaseHeadTitle';
-import BottomNavigation from '../components/BottomNavigation';
+import BottomNavigation from '../components/organism/BottomNavigation';
 
 import TitleAndInput from '../components/molecules/TitleAndInput';
 import InputAndTextarea from '../components/molecules/InputAndTextarea';

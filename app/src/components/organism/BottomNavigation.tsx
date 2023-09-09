@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import TopIconSvg from '../components/navigation/TopIconSvg';
-import AddIconSvg from '../components/navigation/AddIconSvg';
-import SettingsIconSvg from '../components/navigation/SettingsIconSvg';
+import TopIconSvg from '../navigation/TopIconSvg';
+import AddIconSvg from '../navigation/AddIconSvg';
+import SettingsIconSvg from '../navigation/SettingsIconSvg';
 
 const BottomNavigation = () => {
   const location = useLocation();

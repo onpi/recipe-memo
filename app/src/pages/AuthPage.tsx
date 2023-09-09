@@ -1,6 +1,6 @@
 // LoginPage.tsx & SignInPage.tsx
 import GetFormDataFunc from 'src/types/form';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/organism/LoginForm';
 import { useTranslation } from 'react-i18next';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import BottomNavigation from '../components/BottomNavigation';
+import BottomNavigation from '../components/organism/BottomNavigation';
 import ThemeToggle from '../components/ThemeToggle';
 import authHandlers from '../handlers/authHandlers';
 import { useNavigate } from 'react-router-dom';

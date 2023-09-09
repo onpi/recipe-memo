@@ -1,4 +1,4 @@
-import BottomNavigation from '../components/BottomNavigation';
+import BottomNavigation from '../components/organism/BottomNavigation';
 import RecipeHandlers from '../handlers/recipeHandlers';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -42,10 +42,10 @@ const DetailPage = () => {
           <BaseHeadTitle title="材料" />
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="mt-4">
-              <h2 className="text-lg font-bold">
+              <h2 className="base_text text-lg font-bold">
                 {ingredient.ingredients_title}
               </h2>
-              <p className="text-base whitespace-pre-line">
+              <p className="base_text text-base whitespace-pre-line">
                 {ingredient.ingredients_contents}
               </p>
             </div>
@@ -53,7 +53,7 @@ const DetailPage = () => {
         </div>
         <div className="content mt-6">
           <BaseHeadTitle title="メモ" />
-          <div className="text-base mt-4 whitespace-pre-line">
+          <div className="base_text text-base mt-4 whitespace-pre-line">
             {recipe.memo}
           </div>
         </div>
