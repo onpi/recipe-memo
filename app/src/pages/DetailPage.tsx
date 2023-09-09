@@ -8,7 +8,6 @@ import Header from '../components/organism/Header';
 import BaseHeadTitle from '@/components/atoms/BaseHeadTitle';
 
 const DetailPage = () => {
-  const navigate = useNavigate();
   const { id } = useParams(); // URLからレシピIDを取得
   const { recipeList } = useRecipes();
 
@@ -46,13 +45,17 @@ const DetailPage = () => {
               <h2 className="text-lg font-bold">
                 {ingredient.ingredients_title}
               </h2>
-              <p className="text-base">{ingredient.ingredients_contents}</p>
+              <p className="text-base whitespace-pre-line">
+                {ingredient.ingredients_contents}
+              </p>
             </div>
           ))}
         </div>
         <div className="content mt-6">
           <BaseHeadTitle title="メモ" />
-          <div className="text-base mt-4">{recipe.memo}</div>
+          <div className="text-base mt-4 whitespace-pre-line">
+            {recipe.memo}
+          </div>
         </div>
       </div>
       <BottomNavigation />
