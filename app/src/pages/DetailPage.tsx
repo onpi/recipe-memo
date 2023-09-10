@@ -12,6 +12,7 @@ const DetailPage = () => {
   const { recipeList } = useRecipes();
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
+  console.log(recipe);
 
   useEffect(() => {
     if (recipeList.length > 0) {
@@ -39,6 +40,20 @@ const DetailPage = () => {
       <Header title={recipe.title} />
       <div className="container mx-auto px-4 mt-[72px] pb-[104px]">
         <div className="content">
+          {recipe.created_at && recipe.created_at.seconds && (
+            <p className="base_text text-sm">
+              作成日:{' '}
+              {new Date(recipe.created_at.seconds * 1000).toDateString()}
+            </p>
+          )}
+          {recipe.updated_at && recipe.updated_at.seconds && (
+            <p className="base_text text-sm">
+              更新日:{' '}
+              {new Date(recipe.updated_at.seconds * 1000).toDateString()}
+            </p>
+          )}
+        </div>
+        <div className="content mt-2">
           <BaseHeadTitle title="材料" />
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="mt-4">
