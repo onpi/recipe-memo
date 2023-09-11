@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useMemo,
 } from 'react';
 import { Recipe } from '@/types/recipe';
 import RecipeHandlers from '@/handlers/recipeHandlers';
@@ -45,12 +46,16 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({
 
     fetchRecipes();
   }, [userId, fetchAll]);
+  const value = useMemo(() => ({ recipeList, setRecipeList }), [recipeList]);
 
   return (
-    <RecipeContext.Provider value={{ recipeList, setRecipeList }}>
-      {children}
-    </RecipeContext.Provider>
+    <RecipeContext.Provider value={value}>{children}</RecipeContext.Provider>
   );
+  // return (
+  //   <RecipeContext.Provider value={{ recipeList, setRecipeList }}>
+  //     {children}
+  //   </RecipeContext.Provider>
+  // );
 };
 
 export const useRecipes = () => {

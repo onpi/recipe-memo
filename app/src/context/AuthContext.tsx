@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [navigate, location]);
+  }, [uid, navigate, location]);
 
   return (
     <AuthContext.Provider value={{ uid }}>{children}</AuthContext.Provider>

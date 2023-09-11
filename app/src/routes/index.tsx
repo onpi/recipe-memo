@@ -6,6 +6,7 @@ import SignInPage from '../pages/SignInPage';
 import LoginPage from '../pages/LoginPage';
 import AddRecipe from '../pages/AddRecipe';
 import DetailPage from '../pages/DetailPage';
+import EditPage from '../pages/EditPage';
 import { useAuth } from '@/context/AuthContext';
 import { RecipeProvider } from '@/context/RecipeContext';
 
@@ -29,6 +30,14 @@ const RoutesConfig = () => {
         element={
           <RecipeProvider userId={uid} fetchAll={false}>
             <DetailPage />
+          </RecipeProvider>
+        }
+      />
+      <Route
+        path="/recipe/edit/:id"
+        element={
+          <RecipeProvider userId={uid} fetchAll={false}>
+            <EditPage />
           </RecipeProvider>
         }
       />
