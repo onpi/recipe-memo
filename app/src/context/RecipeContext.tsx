@@ -29,6 +29,11 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({
 }) => {
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
 
+  const removeRecipeById = (id: string) => {
+    const newRecipeList = recipeList.filter((recipe) => recipe.id !== id);
+    setRecipeList(newRecipeList);
+  };
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -46,16 +51,14 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({
 
     fetchRecipes();
   }, [userId, fetchAll]);
-  const value = useMemo(() => ({ recipeList, setRecipeList }), [recipeList]);
+  const value = useMemo(
+    () => ({ recipeList, setRecipeList, removeRecipeById }),
+    [recipeList]
+  );
 
   return (
     <RecipeContext.Provider value={value}>{children}</RecipeContext.Provider>
   );
-  // return (
-  //   <RecipeContext.Provider value={{ recipeList, setRecipeList }}>
-  //     {children}
-  //   </RecipeContext.Provider>
-  // );
 };
 
 export const useRecipes = () => {

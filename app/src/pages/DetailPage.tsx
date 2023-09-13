@@ -6,8 +6,10 @@ import { Recipe } from '@/types/recipe';
 import { useRecipes } from '../context/RecipeContext';
 import Header from '../components/organism/Header';
 import BaseHeadTitle from '@/components/atoms/BaseHeadTitle';
+import { useAuth } from '@/context/AuthContext';
 
 const DetailPage = () => {
+  const { uid } = useAuth();
   const { id } = useParams(); // URLからレシピIDを取得
   const { recipeList } = useRecipes();
 
@@ -22,7 +24,8 @@ const DetailPage = () => {
       }
     } else {
       const fetchRecipe = async () => {
-        const result = await RecipeHandlers.getRecipeById(id);
+        if (!uid) return;
+        const result = await RecipeHandlers.getRecipeById(uid, id);
 
         if (result.success && result.data) {
           setRecipe(result.data);

@@ -7,6 +7,8 @@ import {
   where,
   doc,
   getDoc,
+  updateDoc,
+  deleteDoc,
 } from './firebase';
 import { Recipe } from '@/types/recipe';
 
@@ -45,7 +47,7 @@ export const getList = async (userId: string) => {
   }
 };
 
-export const getById = async (recipeId: string) => {
+export const getById = async (user_id: string, recipeId: string) => {
   try {
     const recipeRef = doc(db, 'recipes', recipeId); // ドキュメントの参照を取得
     const docSnap = await getDoc(recipeRef); // ドキュメントのスナップショットを取得
@@ -54,6 +56,9 @@ export const getById = async (recipeId: string) => {
       // ドキュメントが存在するかどうかを確認
       const recipeData = docSnap.data() as Recipe; // ドキュメントのデータを取得
       recipeData.id = docSnap.id; // ドキュメントIDを追加
+      if (recipeData.user_id != user_id) {
+        throw new Error('No such document!');
+      }
       return recipeData;
     } else {
       // ドキュメントが存在しない場合の処理
@@ -62,5 +67,52 @@ export const getById = async (recipeId: string) => {
     }
   } catch (error: any) {
     throw error;
+  }
+};
+
+export const update = async (user_id: string, recipe: Recipe) => {
+  try {
+    const recipeRef = doc(db, 'recipes', recipe.id); // ドキュメントの参照を取得
+    const docSnap = await getDoc(recipeRef); // ドキュメントのスナップショットを取得
+
+    if (docSnap.exists()) {
+      // ドキュメントが存在するかどうかを確認
+      const recipeData = docSnap.data() as Recipe; // ドキュメントのデータを取得
+      if (recipeData.user_id != user_id) {
+        throw new Error('No such document!');
+      }
+      await updateDoc(recipeRef, recipe);
+      return true;
+    } else {
+      // ドキュメントが存在しない場合の処理
+      console.warn('No such document!');
+      return false;
+    }
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const remove = async (user_id: string, recipeId: string) => {
+  try {
+    const recipeRef = doc(db, 'recipes', recipeId);
+    const docSnap = await getDoc(recipeRef);
+
+    if (docSnap.exists()) {
+      const recipeData = docSnap.data() as { user_id: string }; // ここではuser_idだけ取得
+
+      if (recipeData.user_id !== user_id) {
+        throw new Error('Unauthorized action');
+      }
+
+      await deleteDoc(recipeRef);
+      return true;
+    } else {
+      console.warn('No such document!');
+      return false;
+    }
+  } catch (error) {
+    console.error('Failed to delete document:', error);
+    return false;
   }
 };

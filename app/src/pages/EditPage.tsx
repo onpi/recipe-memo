@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 
 const EditPage = () => {
   const navigate = useNavigate();
+
   const { id } = useParams();
 
   const { uid } = useAuth();
@@ -67,7 +68,7 @@ const EditPage = () => {
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
 
-  const create = () => {
+  const update = () => {
     // ここでバリデーションチェック(料理名さえ入力されていればOK)
     if (recipe.title === '') {
       alert('料理名を入力してください');
@@ -79,16 +80,18 @@ const EditPage = () => {
     }
     const updatedRecipe = {
       ...recipe,
-      created_at: new Date(),
+      created_at: recipe.created_at ? recipe.created_at : new Date(),
       updated_at: new Date(),
     };
 
-    RecipeHandlers.createRecipe(updatedRecipe).then((result) => {
-      console.log(result);
-      if (result.success) {
-        navigate('/');
+    RecipeHandlers.updateRecipe(recipe.user_id, updatedRecipe).then(
+      (result) => {
+        console.log(result);
+        if (result.success) {
+          navigate('/');
+        }
       }
-    });
+    );
   };
 
   useEffect(() => {
@@ -99,27 +102,20 @@ const EditPage = () => {
 
   // useEffect内で初期値を設定
   useEffect(() => {
-    console.log('Current id:', id);
-
     if (id && recipeList.length > 0) {
-      console.log('initialRecipe');
-
       const initialRecipe = recipeList.find((recipe) => recipe.id === id);
       if (initialRecipe) {
         setRecipe(initialRecipe);
       }
     } else {
-      console.log('API call');
-
-      RecipeHandlers.getRecipeById(id).then((fetchedRecipe) => {
-        console.log(fetchedRecipe);
-
+      if (!uid) return;
+      RecipeHandlers.getRecipeById(uid, id).then((fetchedRecipe) => {
         if (fetchedRecipe.success && fetchedRecipe.data) {
-          setRecipe(fetchedRecipe.data); // ステートを更新
+          setRecipe(fetchedRecipe.data);
         }
       });
     }
-  }, []);
+  }, [uid]);
 
   return (
     <>
@@ -176,10 +172,10 @@ const EditPage = () => {
         </div>
         <div className="btn_wrap flex flex-col items-center mt-6">
           <BaseBtn
-            label="作成"
+            label="更新"
             type="submit"
             className="w-full"
-            onClick={() => create()}
+            onClick={() => update()}
           />
         </div>
       </div>
