@@ -13,6 +13,7 @@ import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useNavigate } from 'react-router-dom';
 import { useRecipes } from '@/context/RecipeContext';
 import { useParams } from 'react-router-dom';
+import CloseSvg from '@/components/atoms/CloseSvg';
 
 const EditPage = () => {
   const navigate = useNavigate();
@@ -93,6 +94,11 @@ const EditPage = () => {
       }
     );
   };
+  const deleteIngredient = (index: number) => {
+    console.log('delete', index);
+    recipe.ingredients.splice(index, 1);
+    setRecipe({ ...recipe });
+  };
 
   useEffect(() => {
     if (uid) {
@@ -134,6 +140,14 @@ const EditPage = () => {
 
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="ingredients flex flex-col mt-4">
+              {/* buttonをクリックした時にdelete Ingredientを実行する */}
+              <button
+                className="delete ml-auto p-2"
+                onClick={() => deleteIngredient(index)}
+              >
+                <CloseSvg />
+              </button>
+
               <InputAndTextarea
                 inputPlaceholder="材料名"
                 inputValue={ingredient.ingredients_title}
