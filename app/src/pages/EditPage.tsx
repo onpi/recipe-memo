@@ -140,7 +140,6 @@ const EditPage = () => {
 
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="ingredients flex flex-col mt-4">
-              {/* buttonをクリックした時にdelete Ingredientを実行する */}
               <button
                 className="delete ml-auto p-2"
                 onClick={() => deleteIngredient(index)}
