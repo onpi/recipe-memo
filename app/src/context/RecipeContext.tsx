@@ -34,6 +34,16 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({
     setRecipeList(newRecipeList);
   };
 
+  const updateRecipeById = (id: string, updatedRecipe: Recipe) => {
+    const newRecipeList = recipeList.map((recipe) => {
+      if (recipe.id === id) {
+        return updatedRecipe;
+      }
+      return recipe;
+    });
+    setRecipeList(newRecipeList);
+  };
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -52,7 +62,7 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({
     fetchRecipes();
   }, [userId, fetchAll]);
   const value = useMemo(
-    () => ({ recipeList, setRecipeList, removeRecipeById }),
+    () => ({ recipeList, setRecipeList, removeRecipeById, updateRecipeById }),
     [recipeList]
   );
 

@@ -79,9 +79,8 @@ const AddRecipe = () => {
     };
 
     RecipeHandlers.createRecipe(updatedRecipe).then((result) => {
-      console.log(result);
       if (result.success) {
-        navigate('/');
+        result.data && navigate(`/recipe/${result.data}`);
       }
     });
   };

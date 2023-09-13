@@ -21,7 +21,7 @@ const EditPage = () => {
   const { id } = useParams();
 
   const { uid } = useAuth();
-  const { recipeList } = useRecipes();
+  const { recipeList, updateRecipeById } = useRecipes();
   const [recipe, setRecipe] = useState<Recipe>({
     user_id: '',
     title: '',
@@ -89,7 +89,8 @@ const EditPage = () => {
       (result) => {
         console.log(result);
         if (result.success) {
-          navigate('/');
+          updateRecipeById(id, updatedRecipe);
+          result.data && navigate(`/recipe/${result.data}`);
         }
       }
     );

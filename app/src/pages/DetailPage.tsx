@@ -24,7 +24,11 @@ const DetailPage = () => {
       }
     } else {
       const fetchRecipe = async () => {
+        console.log(id);
+        console.log(uid);
+
         if (!uid) return;
+
         const result = await RecipeHandlers.getRecipeById(uid, id);
 
         if (result.success && result.data) {
@@ -34,7 +38,7 @@ const DetailPage = () => {
 
       fetchRecipe();
     }
-  }, [id, recipeList]);
+  }, [uid, id, recipeList]);
 
   if (!recipe) return <div>Loading...</div>;
 

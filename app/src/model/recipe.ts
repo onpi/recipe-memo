@@ -16,7 +16,7 @@ export const create = async (recipe: Recipe) => {
   try {
     const docRef = await addDoc(collection(db, 'recipes'), recipe);
     console.log('Document written with ID: ', docRef.id);
-    return true;
+    return docRef.id;
   } catch (error: any) {
     console.error('Error adding document: ', error);
     throw error;
@@ -82,7 +82,7 @@ export const update = async (user_id: string, recipe: Recipe) => {
         throw new Error('No such document!');
       }
       await updateDoc(recipeRef, recipe);
-      return true;
+      return recipe.id;
     } else {
       // ドキュメントが存在しない場合の処理
       console.warn('No such document!');
