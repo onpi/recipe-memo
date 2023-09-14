@@ -60,22 +60,6 @@ const TopPage = () => {
   return (
     <>
       <div className="page-wrap container mx-auto px-4 pb-[104px]">
-        <ThemeToggle />
-
-        <a
-          href="#"
-          onClick={async (e) => {
-            e.preventDefault();
-            const result = await authHandlers.signOut();
-            console.log(result);
-
-            // ログアウトが成功したら/loginへリダイレクト
-            navigate('/login');
-          }}
-        >
-          <div className="image_wrap">サインアウト</div>
-        </a>
-
         <div className="recipe_list mt-6">
           {recipeList.map((recipe) => (
             <div

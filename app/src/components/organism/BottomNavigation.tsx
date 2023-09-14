@@ -42,7 +42,10 @@ const BottomNavigation = () => {
               </div>
             </div>
           </Link>
-          <Link to="/" className="navigation_link flex-1 text-center py-2">
+          <Link
+            to="/settings"
+            className="navigation_link flex-1 text-center py-2"
+          >
             <div className="navigation_item flex flex-col items-center">
               <div className="navigation_icon">
                 <SettingsIconSvg

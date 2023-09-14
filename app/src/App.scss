@@ -30,6 +30,8 @@ $dark5: #151515;
   --recipeItemBg: #fff;
   --baseTextColor: #000;
   --dotSvgBg: #231f20;
+  --settingsItemBg: #{$light2};
+  --settingsItemText: #000;
 
   &.dark {
     --mainBg: #{$dark5};
@@ -48,6 +50,8 @@ $dark5: #151515;
     --recipeItemBg: #{$dark3};
     --baseTextColor: #{$dark1};
     --dotSvgBg: #{$dark1};
+    --settingsItemBg: #{$dark3};
+    --settingsItemText: #{$dark1};
   }
 }
 
@@ -128,4 +132,10 @@ textarea {
 // トップページ
 .recipe_item {
   background-color: var(--recipeItemBg);
+}
+
+
+.settings_btn {
+  background-color: var(--settingsItemBg);
+  color: var(--settingsItemText);
 }
