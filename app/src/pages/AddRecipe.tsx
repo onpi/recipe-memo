@@ -12,10 +12,12 @@ import { useAuth } from '../context/AuthContext';
 import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useNavigate } from 'react-router-dom';
 import CloseSvg from '@/components/atoms/CloseSvg';
+import { useBase } from '@/context/BaseContext';
 
 const AddRecipe = () => {
   const navigate = useNavigate();
   const { uid } = useAuth();
+  const { showSnackbar } = useBase();
   const [recipe, setRecipe] = useState<Recipe>({
     user_id: '',
     title: '',
@@ -80,7 +82,13 @@ const AddRecipe = () => {
 
     RecipeHandlers.createRecipe(updatedRecipe).then((result) => {
       if (result.success) {
+        sessionStorage.setItem('operationType', 'create');
+        sessionStorage.setItem('operationResult', 'true');
         result.data && navigate(`/recipe/${result.data}`);
+      } else {
+        // 失敗時のSnackbar
+
+        showSnackbar('作成に失敗しました', 'error');
       }
     });
   };

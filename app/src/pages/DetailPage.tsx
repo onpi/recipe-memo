@@ -1,22 +1,36 @@
 import BottomNavigation from '../components/organism/BottomNavigation';
 import RecipeHandlers from '../handlers/recipeHandlers';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Recipe } from '@/types/recipe';
 import { useRecipes } from '../context/RecipeContext';
 import Header from '../components/organism/Header';
 import BaseHeadTitle from '@/components/atoms/BaseHeadTitle';
 import { useAuth } from '@/context/AuthContext';
+import { useBase } from '@/context/BaseContext';
 
 const DetailPage = () => {
   const { uid } = useAuth();
   const { id } = useParams(); // URLからレシピIDを取得
   const { recipeList } = useRecipes();
+  const { showSnackbar } = useBase();
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
-  console.log(recipe);
 
   useEffect(() => {
+    // セッションストレージからフラグを読み出す
+    const operationType = sessionStorage.getItem('operationType');
+    const operationResult = sessionStorage.getItem('operationResult');
+    if (operationType === 'create' && operationResult === 'true') {
+      // フラグがtrueならSnackbarを表示
+
+      showSnackbar('新しいレシピを作成しました。', 'success');
+    }
+    if (operationType === 'edit' && operationResult === 'true') {
+      // フラグがfalseならSnackbarを表示（エラー表示）
+      showSnackbar('レシピの編集が完了しました。', 'success');
+    }
+
     if (recipeList.length > 0) {
       const foundRecipe = recipeList.find((recipe) => recipe.id === id);
       if (foundRecipe) {
@@ -45,6 +59,7 @@ const DetailPage = () => {
   return (
     <>
       <Header title={recipe.title} />
+
       <div className="container mx-auto px-4 mt-[72px] pb-[104px]">
         <div className="content">
           {recipe.created_at && recipe.created_at.seconds && (

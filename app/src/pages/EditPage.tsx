@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecipes } from '@/context/RecipeContext';
 import { useParams } from 'react-router-dom';
 import CloseSvg from '@/components/atoms/CloseSvg';
+import { useBase } from '@/context/BaseContext';
 
 const EditPage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const EditPage = () => {
 
   const { uid } = useAuth();
   const { recipeList, updateRecipeById } = useRecipes();
+  const { showSnackbar } = useBase();
   const [recipe, setRecipe] = useState<Recipe>({
     user_id: '',
     title: '',
@@ -89,8 +91,12 @@ const EditPage = () => {
       (result) => {
         console.log(result);
         if (result.success) {
+          sessionStorage.setItem('operationType', 'edit');
+          sessionStorage.setItem('operationResult', 'true');
           updateRecipeById(id, updatedRecipe);
           result.data && navigate(`/recipe/${result.data}`);
+        } else {
+          showSnackbar('編集に失敗しました', 'error');
         }
       }
     );

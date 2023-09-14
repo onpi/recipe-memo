@@ -8,11 +8,14 @@ import { useState } from 'react';
 import Modal from '@/components/molecules/BaseModal';
 import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
+import { useBase } from '@/context/BaseContext';
 
 const TopPage = () => {
   const navigate = useNavigate();
   const { recipeList, removeRecipeById } = useRecipes();
   const { uid } = useAuth();
+  const { showSnackbar } = useBase();
+
   const goToDetails = (id: string | undefined) => {
     // 詳細ページへの遷移処理（idはレシピのID）
     navigate(`/recipe/${id}`);
@@ -42,7 +45,10 @@ const TopPage = () => {
     if (!uid || !selectedRecipeId) return;
     const result = await RecipeHandlers.deleteRecipe(uid, selectedRecipeId);
     if (result.success) {
+      showSnackbar('レシピを削除しました。', 'success');
       removeRecipeById(selectedRecipeId);
+    } else {
+      showSnackbar('レシピの削除に失敗しました。', 'error');
     }
     closeModal();
   };

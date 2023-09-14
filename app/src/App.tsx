@@ -4,13 +4,16 @@ import Routes from './routes';
 import './locales/i18n';
 // import AuthProvider from './AuthProvider';
 import { AuthProvider } from './context/AuthContext';
+import { BaseProvider } from './context/BaseContext';
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <BaseProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </BaseProvider>
     </Router>
   );
 }
