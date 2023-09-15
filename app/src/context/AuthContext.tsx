@@ -10,10 +10,14 @@ import { auth, onAuthStateChanged } from '../model/firebase';
 import { useLocation } from 'react-router-dom';
 type AuthContextType = {
   uid: string | null;
+  userInfo: any;
 };
 
 // デフォルト値はnullとする
-export const AuthContext = createContext<AuthContextType>({ uid: null });
+export const AuthContext = createContext<AuthContextType>({
+  uid: null,
+  userInfo: null,
+});
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -21,6 +25,7 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [uid, setUid] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (user) {
         const uid = user.uid;
         setUid(uid);
+        setUserInfo(user);
         if (location.pathname === '/login' || location.pathname === '/signin') {
           navigate('/');
         }
@@ -47,7 +53,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [uid, navigate, location]);
 
   return (
-    <AuthContext.Provider value={{ uid }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ uid, userInfo }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -6,7 +6,12 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        custom: '0 0 4px 5px rgba(0, 0, 0, 0.25)',
+        'custom-orange': '0 0 4px 5px rgba(255, 165, 0, .25)',
+      },
+    },
   },
   plugins: [],
   darkMode: 'class',
