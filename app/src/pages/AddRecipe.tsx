@@ -14,10 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import CloseSvg from '@/components/atoms/CloseSvg';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
-import { errorMessages } from '@/consts/Messages';
 
 const AddRecipe = () => {
-  const { t } = useTranslation('ui');
+  const { t } = useTranslation(['ui', 'error']);
+
   const navigate = useNavigate();
   const { uid } = useAuth();
   const { showSnackbar } = useBase();
@@ -70,11 +70,11 @@ const AddRecipe = () => {
   const create = () => {
     // ここでバリデーションチェック(料理名さえ入力されていればOK)
     if (recipe.title === '') {
-      alert(errorMessages.invailedRecipeName);
+      alert(t('error:invailedRecipeName'));
       return;
     }
     if (recipe.user_id === '') {
-      alert(errorMessages.userIdNotFound);
+      alert(t('error:userIdNotFound'));
       return;
     }
     const updatedRecipe = {
@@ -91,7 +91,7 @@ const AddRecipe = () => {
       } else {
         // 失敗時のSnackbar
 
-        showSnackbar(errorMessages.failedToCreateRecipe, 'error');
+        showSnackbar(t('errorMessages.failedToCreateRecipe'), 'error');
       }
     });
   };

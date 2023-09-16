@@ -5,15 +5,19 @@ import authMessagesEn from './en/authErrors';
 import uiMessagesEn from './en/uiMessages';
 import authMessagesJa from './ja/authErrors';
 import uiMessagesJa from './ja/uiMessages';
+import errorMessageJa from './ja/errorMessage';
+import errorMessageEn from './en/errorMessage';
 
 const resources = {
   en: {
     auth: authMessagesEn,
     ui: uiMessagesEn,
+    error: errorMessageEn,
   },
   ja: {
     auth: authMessagesJa,
     ui: uiMessagesJa,
+    error: errorMessageJa,
   },
 };
 

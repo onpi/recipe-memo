@@ -16,10 +16,9 @@ import { useParams } from 'react-router-dom';
 import CloseSvg from '@/components/atoms/CloseSvg';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
-import { errorMessages } from '@/consts/Messages';
 
 const EditPage = () => {
-  const { t } = useTranslation('ui');
+  const { t } = useTranslation(['ui', 'error']);
 
   const navigate = useNavigate();
 
@@ -78,11 +77,11 @@ const EditPage = () => {
   const update = () => {
     // ここでバリデーションチェック(料理名さえ入力されていればOK)
     if (recipe.title === '') {
-      alert(errorMessages.invailedRecipeName);
+      alert(t('error:invailedRecipeName'));
       return;
     }
     if (recipe.user_id === '') {
-      alert(errorMessages.userIdNotFound);
+      alert(t('error:userIdNotFound'));
       return;
     }
     const updatedRecipe = {
@@ -100,7 +99,7 @@ const EditPage = () => {
           updateRecipeById(id, updatedRecipe);
           result.data && navigate(`/recipe/${result.data}`);
         } else {
-          showSnackbar(errorMessages.failedToEditRecipe, 'error');
+          showSnackbar(t('error:failedToEditRecipe'), 'error');
         }
       }
     );

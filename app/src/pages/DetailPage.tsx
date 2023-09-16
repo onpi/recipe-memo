@@ -8,9 +8,10 @@ import Header from '../components/organism/Header';
 import BaseHeadTitle from '@/components/atoms/BaseHeadTitle';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
-import { successMessages } from '@/consts/Messages';
+import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
+  const { t } = useTranslation(['ui', 'error']);
   const { uid } = useAuth();
   const { id } = useParams(); // URLからレシピIDを取得
   const { recipeList } = useRecipes();
@@ -25,11 +26,11 @@ const DetailPage = () => {
     if (operationType === 'create' && operationResult === 'true') {
       // フラグがtrueならSnackbarを表示
 
-      showSnackbar(successMessages.successToCreateRecipe, 'success');
+      showSnackbar(t('error:successToCreateRecipe'), 'success');
     }
     if (operationType === 'edit' && operationResult === 'true') {
       // フラグがfalseならSnackbarを表示（エラー表示）
-      showSnackbar(successMessages.successToUpdateRecipe, 'success');
+      showSnackbar(t('error:successToUpdateRecipe'), 'success');
     }
 
     if (recipeList.length > 0) {

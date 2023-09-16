@@ -8,10 +8,9 @@ import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
-import { errorMessages, successMessages } from '@/consts/Messages';
 
 const TopPage = () => {
-  const { t } = useTranslation('ui');
+  const { t } = useTranslation(['ui', 'error']);
   const navigate = useNavigate();
   const { recipeList, removeRecipeById } = useRecipes();
   const { uid } = useAuth();
@@ -46,10 +45,10 @@ const TopPage = () => {
     if (!uid || !selectedRecipeId) return;
     const result = await RecipeHandlers.deleteRecipe(uid, selectedRecipeId);
     if (result.success) {
-      showSnackbar(successMessages.successToDeleteRecipe, 'success');
+      showSnackbar(t('error:successToDeleteRecipe'), 'success');
       removeRecipeById(selectedRecipeId);
     } else {
-      showSnackbar(errorMessages.failedToDeleteRecipe, 'error');
+      showSnackbar(t('error:failedToDeleteRecipe'), 'error');
     }
     closeModal();
   };
