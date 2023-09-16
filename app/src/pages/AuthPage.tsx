@@ -23,26 +23,6 @@ const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
           </div>
         </div>
         {errorMessages && <p className="text-red-500">{errorMessages}</p>}
-        <LoginForm
-          renderButton={(getFormData: GetFormDataFunc) =>
-            pageType === 'login' ? (
-              <BaseBtn
-                label={t('login.btn')} // t('login.btn') と同等のもの
-                type="submit"
-                className="w-full"
-                onClick={() => handleSubmit(getFormData)}
-              />
-            ) : (
-              <BaseBtn
-                label={t('signin.btn')} // t('login.btn') と同等のもの
-                type="submit"
-                className="w-full"
-                onClick={() => handleSubmit(getFormData)}
-              />
-            )
-          }
-        />
-        <p className="my-2">or</p>
         <div className="google_wrap">
           <a
             href="#"
@@ -52,7 +32,11 @@ const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
             }}
           >
             <div className="image_wrap">
-              <img src={`/images/google_signin.svg`} alt="" />
+              {pageType === 'login' ? (
+                <img src={`/images/google_login.svg`} alt="" />
+              ) : (
+                <img src={`/images/google_signin.svg`} alt="" />
+              )}
             </div>
           </a>
         </div>

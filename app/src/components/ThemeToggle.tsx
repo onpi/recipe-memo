@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ThemeToggle = () => {
   const setLightTheme = () => {
@@ -17,6 +17,32 @@ const ThemeToggle = () => {
   };
 
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // ローカルストレージからテーマを取得
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      if (savedTheme === 'dark') {
+        setDarkTheme();
+        setIsDarkMode(true);
+      } else {
+        setLightTheme();
+        setIsDarkMode(false);
+      }
+    } else {
+      // OSの設定に従う
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        setDarkTheme();
+        setIsDarkMode(true);
+      } else {
+        setLightTheme();
+        setIsDarkMode(false);
+      }
+    }
+  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);

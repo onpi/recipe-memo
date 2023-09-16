@@ -24,7 +24,9 @@ const SettingsPage = () => {
           <div className="user_card bg-white p-4 rounded-lg shadow-custom-orange flex items-center mx-4">
             <div className="user_card__icon">
               <img
-                src={userInfo?.photoURL}
+                src={
+                  userInfo?.photoURL ? userInfo?.photoURL : '/images/logo.svg'
+                }
                 alt="user icon"
                 className="w-16 h-16 rounded-full"
               />
