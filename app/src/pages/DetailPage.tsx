@@ -8,6 +8,7 @@ import Header from '../components/organism/Header';
 import BaseHeadTitle from '@/components/atoms/BaseHeadTitle';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
+import { successMessages } from '@/consts/Messages';
 
 const DetailPage = () => {
   const { uid } = useAuth();
@@ -24,11 +25,11 @@ const DetailPage = () => {
     if (operationType === 'create' && operationResult === 'true') {
       // フラグがtrueならSnackbarを表示
 
-      showSnackbar('新しいレシピを作成しました。', 'success');
+      showSnackbar(successMessages.successToCreateRecipe, 'success');
     }
     if (operationType === 'edit' && operationResult === 'true') {
       // フラグがfalseならSnackbarを表示（エラー表示）
-      showSnackbar('レシピの編集が完了しました。', 'success');
+      showSnackbar(successMessages.successToUpdateRecipe, 'success');
     }
 
     if (recipeList.length > 0) {

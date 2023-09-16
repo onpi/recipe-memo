@@ -1,6 +1,4 @@
 import BottomNavigation from '../components/organism/BottomNavigation';
-import ThemeToggle from '../components/ThemeToggle';
-import authHandlers from '../handlers/authHandlers';
 import { useNavigate } from 'react-router-dom';
 import DotSvg from '@/components/atoms/DotSvg';
 import { useRecipes } from '../context/RecipeContext';
@@ -10,6 +8,7 @@ import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
+import { errorMessages, successMessages } from '@/consts/Messages';
 
 const TopPage = () => {
   const { t } = useTranslation('ui');
@@ -47,10 +46,10 @@ const TopPage = () => {
     if (!uid || !selectedRecipeId) return;
     const result = await RecipeHandlers.deleteRecipe(uid, selectedRecipeId);
     if (result.success) {
-      showSnackbar('レシピを削除しました。', 'success');
+      showSnackbar(successMessages.successToDeleteRecipe, 'success');
       removeRecipeById(selectedRecipeId);
     } else {
-      showSnackbar('レシピの削除に失敗しました。', 'error');
+      showSnackbar(errorMessages.failedToDeleteRecipe, 'error');
     }
     closeModal();
   };
