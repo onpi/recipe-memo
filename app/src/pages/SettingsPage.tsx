@@ -5,6 +5,7 @@ import authHandlers from '@/handlers/authHandlers';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 const SettingsPage = () => {
   const { t } = useTranslation('ui');
@@ -17,6 +18,21 @@ const SettingsPage = () => {
     if (result.success) {
       navigate('/login');
     }
+  };
+  const { i18n } = useTranslation();
+
+  // アプリケーションが読み込まれたときの処理
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, [i18n]);
+
+  const handleLanguageChange = (event: any) => {
+    const newLanguage = event.target.value;
+    i18n.changeLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage); // 言語設定をローカルストレージに保存
   };
 
   return (
@@ -43,6 +59,14 @@ const SettingsPage = () => {
           </div>
           <div className="mt-6"></div>
           <ThemeToggle />
+          <select
+            onChange={handleLanguageChange}
+            value={i18n.language}
+            className="settings_btn w-full px-4 py-3 text-lg border-gray-300 shadow-md text-left mt-2"
+          >
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+          </select>
           <button
             className="settings_btn w-full px-4 py-3 text-lg border-gray-300 shadow-md text-left mt-2"
             onClick={async (e) => signOut(e)}

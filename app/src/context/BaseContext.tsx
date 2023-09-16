@@ -1,11 +1,12 @@
-import Snackbar from '@/components/atoms/Snackbar';
-import {
+import React, {
   createContext,
   useState,
   useContext,
   useEffect,
   ReactNode,
 } from 'react';
+import { useTranslation } from 'react-i18next';
+import Snackbar from '@/components/atoms/Snackbar';
 
 interface BaseContextProps {
   snackbarInfo: {
@@ -14,24 +15,47 @@ interface BaseContextProps {
     show: boolean;
   };
   setSnackbarInfo: React.DispatchWithoutAction;
+  showSnackbar: (message: string, type: 'success' | 'error') => void;
+  hideSnackbar: () => void;
 }
 
 export const BaseContext = createContext<BaseContextProps | undefined>(
   undefined
 );
 
-interface RecipeProviderProps {
+interface BaseProviderProps {
   children: ReactNode;
 }
 
-export const BaseProvider: React.FC<RecipeProviderProps> = ({ children }) => {
+export const BaseProvider: React.FC<BaseProviderProps> = ({ children }) => {
   const [snackbarInfo, setSnackbarInfo] = useState({
     message: '',
     type: 'success',
     show: false,
   });
 
-  const showSnackbar = (message: any, type: 'success' | 'error') => {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    // Handle dark theme
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Handle language setting
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage);
+    }
+  }, [i18n]);
+
+  const showSnackbar = (message: string, type: 'success' | 'error') => {
     setSnackbarInfo({ message, type, show: true });
   };
 
@@ -50,7 +74,9 @@ export const BaseProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   }, [snackbarInfo]);
 
   return (
-    <BaseContext.Provider value={{ showSnackbar, hideSnackbar }}>
+    <BaseContext.Provider
+      value={{ snackbarInfo, setSnackbarInfo, showSnackbar, hideSnackbar }}
+    >
       {children}
       <Snackbar
         message={snackbarInfo.message}
@@ -64,7 +90,7 @@ export const BaseProvider: React.FC<RecipeProviderProps> = ({ children }) => {
 export const useBase = () => {
   const context = useContext(BaseContext);
   if (!context) {
-    throw new Error('useSnackbar must be used within a SnackbarProvider');
+    throw new Error('useBase must be used within a BaseProvider');
   }
   return context;
 };
