@@ -23,7 +23,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en', // 初期言語を設定
+  lng: 'ja', // 初期言語を設定
   fallbackLng: 'ja', // 未翻訳のテキストがある場合のデフォルト言語
   interpolation: {
     escapeValue: false,

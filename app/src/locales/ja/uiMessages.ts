@@ -31,4 +31,7 @@ export default {
   'settings.darkmode': 'ダークモード',
   'settings.language': '言語',
   'settings.logout': 'ログアウト',
+
+  created: '作成日時',
+  updated: '更新日時',
 };

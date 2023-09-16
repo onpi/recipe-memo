@@ -28,4 +28,7 @@ export default {
   'settings.darkmode': 'Dark mode',
   'settings.language': 'Language',
   'settings.logout': 'Logout',
+
+  created: 'Created',
+  updated: 'Updated',
 };

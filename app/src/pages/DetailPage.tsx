@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
   const { t } = useTranslation(['ui', 'error']);
+  const { i18n } = useTranslation();
+
   const { uid } = useAuth();
   const { id } = useParams(); // URLからレシピIDを取得
   const { recipeList } = useRecipes();
@@ -32,6 +34,9 @@ const DetailPage = () => {
       // フラグがfalseならSnackbarを表示（エラー表示）
       showSnackbar(t('error:successToUpdateRecipe'), 'success');
     }
+    // セッションストレージを削除
+    sessionStorage.removeItem('operationType');
+    sessionStorage.removeItem('operationResult');
 
     if (recipeList.length > 0) {
       const foundRecipe = recipeList.find((recipe) => recipe.id === id);
@@ -56,6 +61,34 @@ const DetailPage = () => {
     }
   }, [uid, id, recipeList]);
 
+  const formatTimestamp = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    const locale = i18n.language;
+    let options;
+
+    if (locale === 'ja') {
+      options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+      };
+    } else {
+      options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+      };
+    }
+
+    return new Intl.DateTimeFormat(locale, options).format(date);
+  };
+
   if (!recipe) return <div>Loading...</div>;
 
   return (
@@ -66,19 +99,17 @@ const DetailPage = () => {
         <div className="content">
           {recipe.created_at && recipe.created_at.seconds && (
             <p className="base_text text-sm">
-              作成日:{' '}
-              {new Date(recipe.created_at.seconds * 1000).toDateString()}
+              {t('created')}: {formatTimestamp(recipe.created_at.seconds)}
             </p>
           )}
           {recipe.updated_at && recipe.updated_at.seconds && (
             <p className="base_text text-sm">
-              更新日:{' '}
-              {new Date(recipe.updated_at.seconds * 1000).toDateString()}
+              {t('updated')}: {formatTimestamp(recipe.updated_at.seconds)}
             </p>
           )}
         </div>
         <div className="content mt-2">
-          <BaseHeadTitle title="材料" />
+          <BaseHeadTitle title={t('recipe.ingredients')} />
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="mt-4">
               <h2 className="base_text text-lg font-bold">
@@ -91,7 +122,7 @@ const DetailPage = () => {
           ))}
         </div>
         <div className="content mt-6">
-          <BaseHeadTitle title="メモ" />
+          <BaseHeadTitle title={t('recipe.memo')} />
           <div className="base_text text-base mt-4 whitespace-pre-line">
             {recipe.memo}
           </div>
