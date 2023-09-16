@@ -2,8 +2,10 @@ import { Link, useLocation } from 'react-router-dom';
 import TopIconSvg from '../navigation/TopIconSvg';
 import AddIconSvg from '../navigation/AddIconSvg';
 import SettingsIconSvg from '../navigation/SettingsIconSvg';
+import { useTranslation } from 'react-i18next';
 
 const BottomNavigation = () => {
+  const { t } = useTranslation('ui');
   const location = useLocation();
   const isActive = (path: any) => location.pathname === path;
 
@@ -28,7 +30,7 @@ const BottomNavigation = () => {
                   isActive('/') ? 'active' : ''
                 }`}
               >
-                トップ
+                {t('bottomTab.home')}
               </div>
             </div>
           </Link>
@@ -61,7 +63,7 @@ const BottomNavigation = () => {
                   isActive('/settings') ? 'active' : ''
                 }`}
               >
-                設定
+                {t('bottomTab.settings')}
               </div>
             </div>
           </Link>

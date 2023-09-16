@@ -9,8 +9,10 @@ import Modal from '@/components/molecules/BaseModal';
 import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
+import { useTranslation } from 'react-i18next';
 
 const TopPage = () => {
+  const { t } = useTranslation('ui');
   const navigate = useNavigate();
   const { recipeList, removeRecipeById } = useRecipes();
   const { uid } = useAuth();
@@ -87,14 +89,18 @@ const TopPage = () => {
             {showDeleteConfirm ? (
               <div className="">
                 <div className="my-4">
-                  <p>{getResipeTitleById(selectedRecipeId)}を削除しますか？</p>
+                  <p className="base_text">
+                    {t('recipe.deleteConfirmation', {
+                      recipeName: getResipeTitleById(selectedRecipeId),
+                    })}
+                  </p>
                 </div>
                 <button
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                   onClick={deleteRecipe}
                 >
-                  Delete
+                  {t('common.delete')}
                 </button>
                 <button
                   type="button"
@@ -107,7 +113,9 @@ const TopPage = () => {
             ) : (
               <div className="">
                 <div className="my-4">
-                  <p>{getResipeTitleById(selectedRecipeId)}</p>
+                  <p className="base_text">
+                    {getResipeTitleById(selectedRecipeId)}
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -116,14 +124,14 @@ const TopPage = () => {
                     setShowDeleteConfirm(true);
                   }}
                 >
-                  Delete
+                  {t('common.delete')}
                 </button>
                 <button
                   type="button"
                   className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                   onClick={editRecipe}
                 >
-                  Edit
+                  {t('common.edit')}
                 </button>
               </div>
             )}

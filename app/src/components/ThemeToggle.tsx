@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ThemeToggle = () => {
+  const { t } = useTranslation('ui');
+
   const setLightTheme = () => {
     document.documentElement.classList.remove('dark');
     localStorage.theme = 'light';
@@ -55,7 +58,7 @@ const ThemeToggle = () => {
 
   return (
     <div className="settings_btn w-full px-4 py-3 text-lg border-gray-300 shadow-md mt-2 flex justify-between items-center">
-      <span>ダークモード</span>
+      <span>{t('settings.darkmode')}</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input
           type="checkbox"

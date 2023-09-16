@@ -15,8 +15,11 @@ import { useRecipes } from '@/context/RecipeContext';
 import { useParams } from 'react-router-dom';
 import CloseSvg from '@/components/atoms/CloseSvg';
 import { useBase } from '@/context/BaseContext';
+import { useTranslation } from 'react-i18next';
 
 const EditPage = () => {
+  const { t } = useTranslation('ui');
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -132,18 +135,18 @@ const EditPage = () => {
 
   return (
     <>
-      <Header title="編集" />
+      <Header title={t('header.edit')} />
       <div className="container mx-auto px-4 mt-[72px] pb-[104px]">
         <div className="mt-6">
           <TitleAndInput
-            title="料理名"
-            placeholder="料理名"
+            title={t('recipe.name')}
+            placeholder={t('recipe.name.placeholder')}
             value={recipe.title}
             onChange={(newValue) => handleChangeContents('title', newValue)}
           />
         </div>
         <div className="mt-6">
-          <BaseHeadTitle title="材料" />
+          <BaseHeadTitle title={t('recipe.ingredients')} />
 
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="ingredients flex flex-col mt-4">
@@ -155,12 +158,14 @@ const EditPage = () => {
               </button>
 
               <InputAndTextarea
-                inputPlaceholder="材料名"
+                inputPlaceholder={t('recipe.ingredients.name.placeholder')}
                 inputValue={ingredient.ingredients_title}
                 onChangeInput={(newValue) =>
                   handleChangeIngredients('ingredients_title', index, newValue)
                 }
-                textareaPlaceholder="材料"
+                textareaPlaceholder={t(
+                  'recipe.ingredients.contents.placeholder'
+                )}
                 textareaValue={ingredient.ingredients_contents}
                 onChangeTextarea={(newValue) =>
                   handleChangeIngredients(
@@ -175,7 +180,7 @@ const EditPage = () => {
 
           <div className="btn_wrap flex flex-col items-center mt-6">
             <BaseBtn
-              label="材料を追加"
+              label={t('recipe.addIngredients')}
               type="submit"
               className="w-[160px]"
               onClick={() => addIngredients()}
@@ -184,7 +189,7 @@ const EditPage = () => {
         </div>
         <div className="mt-6">
           <TitleAndTextarea
-            title="メモ"
+            title={t('recipe.memo')}
             placeholder=""
             value={recipe.memo}
             onChange={(newValue) => handleChangeContents('memo', newValue)}
@@ -192,7 +197,7 @@ const EditPage = () => {
         </div>
         <div className="btn_wrap flex flex-col items-center mt-6">
           <BaseBtn
-            label="更新"
+            label={t('button.update')}
             type="submit"
             className="w-full"
             onClick={() => update()}

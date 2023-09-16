@@ -14,11 +14,13 @@ const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
             <div className="logo_image flex items-center justify-center">
               <img src={`/images/logo.svg`} />
             </div>
-            <p className="logo_text text-base mt-4">{t('auth.head')}</p>
+            <p className="logo_text base_text text-base mt-4">
+              {t('auth.head')}
+            </p>
           </div>
         </div>
         {errorMessages && <p className="text-red-500">{errorMessages}</p>}
-        <div className="google_wrap">
+        <div className="google_wrap mt-4">
           <a
             href="#"
             onClick={async (e) => {
