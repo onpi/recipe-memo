@@ -1,15 +1,10 @@
-// LoginPage.tsx & SignInPage.tsx
-import GetFormDataFunc from 'src/types/form';
-import LoginForm from '../components/organism/LoginForm';
 import { useTranslation } from 'react-i18next';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { Link } from 'react-router-dom';
-import BaseBtn from '../components/atoms/BaseBtn';
 
 const AuthPage = ({ pageType }: { pageType: 'login' | 'signin' }) => {
   const { t } = useTranslation('ui');
-  const { errorMessages, handleSubmit, handleSocialAuth } =
-    useAuthForm(pageType);
+  const { errorMessages, handleSocialAuth } = useAuthForm(pageType);
 
   return (
     <>
