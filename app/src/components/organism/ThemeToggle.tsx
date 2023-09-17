@@ -19,18 +19,18 @@ const ThemeToggle = () => {
   useEffect(() => {
     // ローカルストレージからテーマを取得
     const savedTheme = localStorage.getItem('theme');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+
     if (savedTheme) {
       if (savedTheme === 'dark') {
         setDarkTheme();
         setIsDarkMode(true);
-        const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor) {
           themeColor.setAttribute('content', '#303739');
         }
       } else {
         setLightTheme();
         setIsDarkMode(false);
-        const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor) {
           themeColor.setAttribute('content', '#ff9500');
         }
@@ -48,7 +48,7 @@ const ThemeToggle = () => {
         setIsDarkMode(false);
       }
     }
-  }, []);
+  }, [isDarkMode]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
