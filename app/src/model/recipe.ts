@@ -79,7 +79,7 @@ export const update = async (user_id: string, recipe: Recipe) => {
 
     if (docSnap.exists()) {
       // ドキュメントが存在するかどうかを確認
-      const recipeData = docSnap.data() as Recipe; // ドキュメントのデータを取得
+      const recipeData = docSnap.data(); // ドキュメントのデータを取得
       if (recipeData.user_id != user_id) {
         throw new Error('No such document!');
       }
