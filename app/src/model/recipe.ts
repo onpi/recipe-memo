@@ -83,7 +83,7 @@ export const update = async (user_id: string, recipe: Recipe) => {
       if (recipeData.user_id != user_id) {
         throw new Error('No such document!');
       }
-      await updateDoc(recipeRef, recipe);
+      await updateDoc(recipeRef, recipe as Recipe);
       return recipe.id;
     } else {
       // ドキュメントが存在しない場合の処理

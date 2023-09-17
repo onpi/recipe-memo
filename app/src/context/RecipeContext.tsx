@@ -13,6 +13,7 @@ interface RecipeContextProps {
   recipeList: Recipe[];
   setRecipeList: React.Dispatch<React.SetStateAction<Recipe[]>>;
   updateRecipeById: (id: string, updatedRecipe: Recipe) => void;
+  removeRecipeById: (id: string) => void;
 }
 
 const RecipeContext = createContext<RecipeContextProps | undefined>(undefined);
