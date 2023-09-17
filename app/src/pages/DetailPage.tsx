@@ -64,27 +64,24 @@ const DetailPage = () => {
   const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
     const locale = i18n.language;
-    let options;
-
-    if (locale === 'ja') {
-      options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-        hour: '2-digit',
-        minute: '2-digit',
-      };
-    } else {
-      options = {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        weekday: 'short',
-        hour: '2-digit',
-        minute: '2-digit',
-      };
-    }
+    const options: Intl.DateTimeFormatOptions =
+      locale === 'ja'
+        ? {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long',
+            hour: '2-digit',
+            minute: '2-digit',
+          }
+        : {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            weekday: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+          };
 
     return new Intl.DateTimeFormat(locale, options).format(date);
   };

@@ -72,6 +72,8 @@ export const getById = async (user_id: string, recipeId: string) => {
 
 export const update = async (user_id: string, recipe: Recipe) => {
   try {
+    if (recipe.id == undefined) return;
+
     const recipeRef = doc(db, 'recipes', recipe.id); // ドキュメントの参照を取得
     const docSnap = await getDoc(recipeRef); // ドキュメントのスナップショットを取得
 
