@@ -23,9 +23,15 @@ const ThemeToggle = () => {
       if (savedTheme === 'dark') {
         setDarkTheme();
         setIsDarkMode(true);
+        document
+          .querySelector('meta[name="theme-color"]')!
+          .setAttribute('content', '#303739');
       } else {
         setLightTheme();
         setIsDarkMode(false);
+        document
+          .querySelector('meta[name="theme-color"]')!
+          .setAttribute('content', '#ff9500');
       }
     } else {
       // OSの設定に従う
