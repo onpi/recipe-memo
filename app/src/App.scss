@@ -58,7 +58,11 @@ $dark5: #151515;
     --userCardText: #{$dark1};
   }
 }
-
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
 body {
   background-color: var(--mainBg);
 }
