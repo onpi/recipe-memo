@@ -87,6 +87,10 @@ textarea {
   text-decoration: underline;
 }
 
+.navigation {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 .navigation_color {
   color: var(--navigationColor);
   &.active {
