@@ -35,7 +35,7 @@ export const getList = async (userId: string) => {
     );
 
     const querySnapshot = await getDocs(recipeQuery);
-    querySnapshot.forEach((doc: { data: () => Recipe; id: string }) => {
+    querySnapshot.forEach((doc: any) => {
       const recipeData = doc.data() as Recipe;
       recipeData.id = doc.id; // ドキュメントIDを追加
       recipes.push(recipeData);
