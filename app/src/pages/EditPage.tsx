@@ -90,6 +90,7 @@ const EditPage = () => {
       updated_at: new Date(),
     };
 
+    if (!recipe.user_id) return;
     RecipeHandlers.updateRecipe(recipe.user_id, updatedRecipe).then(
       (result) => {
         console.log(result);

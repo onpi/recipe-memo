@@ -12,6 +12,7 @@ import RecipeHandlers from '@/handlers/recipeHandlers';
 interface RecipeContextProps {
   recipeList: Recipe[];
   setRecipeList: React.Dispatch<React.SetStateAction<Recipe[]>>;
+  updateRecipeById: (id: string, updatedRecipe: Recipe) => void;
 }
 
 const RecipeContext = createContext<RecipeContextProps | undefined>(undefined);
