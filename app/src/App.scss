@@ -1,0 +1,131 @@
+$baseColor: #ff9500;
+
+$light1: #f6f8f9;
+$light2: #fbfbfb;
+$light3: #f4f5f7;
+$light4: #d6e4ec;
+$light5: #626969;
+
+$dark1: #dce2e2;
+$dark2: #828282;
+$dark3: #303739;
+$dark4: #1b1e1e;
+$dark5: #151515;
+
+:root {
+  /* ライトモード時 */
+  --mainBg: #{$light1};
+  --baseBtnBg: #{$baseColor};
+  --baseBthText: #fff;
+  --baseInputBg: #{$light2};
+  --baseInputBorder: #{$light4};
+  --baseInputText: #{$light5};
+  --baseLinkText: #{$baseColor};
+  --navigationColor: #9e9e9e;
+  --navigationActiveColor: #{$baseColor};
+  --navigationLinkBg: #{$light2};
+  --productHeaderBg: #{$baseColor};
+  --productHeaderText: #fff;
+  --headBorderColor: #{$baseColor};
+  --recipeItemBg: #fff;
+  --baseTextColor: #000;
+  --dotSvgBg: #231f20;
+  --settingsItemBg: #{$light2};
+  --settingsItemText: #000;
+  --userCardBg: #{$light2};
+  --userCardText: #000;
+
+  &.dark {
+    --mainBg: #{$dark5};
+    --baseBtnBg: #{$dark3};
+    --baseBthText: #{$baseColor};
+    --baseInputBg: #{$dark3};
+    --baseInputBorder: #{$dark1};
+    --baseInputText: #{$dark1};
+    --baseLinkText: #{$baseColor};
+    --navigationColor: #9e9e9e;
+    --navigationActiveColor: #{$baseColor};
+    --navigationLinkBg: #{$dark3};
+    --productHeaderBg: #{$dark3};
+    --productHeaderText: #{$dark1};
+    --headBorderColor: #{$baseColor};
+    --recipeItemBg: #{$dark3};
+    --baseTextColor: #{$dark1};
+    --dotSvgBg: #{$dark1};
+    --settingsItemBg: #{$dark3};
+    --settingsItemText: #{$dark1};
+    --userCardBg: #{$dark3};
+    --userCardText: #{$dark1};
+  }
+}
+
+body {
+  background-color: var(--mainBg);
+}
+
+.base_btn {
+  background-color: var(--baseBtnBg);
+  color: var(--baseBthText);
+}
+.base_text {
+  color: var(--baseTextColor);
+}
+
+input,
+textarea {
+  border: 1px solid var(--baseInputBorder);
+  background-color: var(--baseInputBg);
+  color: var(--baseInputText);
+}
+
+.custom_link {
+  color: var(--baseLinkText);
+  text-decoration: underline;
+}
+
+.navigation_color {
+  color: var(--navigationColor);
+  &.active {
+    color: var(--navigationActiveColor);
+  }
+}
+.navigation_link {
+  background-color: var(--navigationLinkBg);
+}
+
+.product_header {
+  background-color: var(--productHeaderBg);
+}
+.product_header_title {
+  color: var(--productHeaderText);
+}
+
+.recipe_head {
+  position: relative;
+  &::before {
+    background-color: var(--headBorderColor);
+    bottom: 0;
+    content: '';
+    height: 20px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
+}
+
+// トップページ
+.recipe_item {
+  background-color: var(--recipeItemBg);
+}
+
+.settings_btn {
+  background-color: var(--settingsItemBg);
+  color: var(--settingsItemText);
+}
+
+.user_card {
+  background-color: var(--userCardBg);
+  color: var(--userCardText);
+}
