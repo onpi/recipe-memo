@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import BottomNavigation from '@/components/organism/BottomNavigation';
 import Header from '@/components/organism/Header';
 import authHandlers from '@/handlers/authHandlers';
-import ThemeToggle from '@/components/ThemeToggle';
+import ThemeToggle from '@/components/organism/ThemeToggle';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';

@@ -14,11 +14,6 @@ const ThemeToggle = () => {
     localStorage.theme = 'dark';
   };
 
-  const setSystemPreference = () => {
-    document.documentElement.classList.remove('dark'); // または、OSの設定に従う設定を行う
-    localStorage.removeItem('theme');
-  };
-
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {

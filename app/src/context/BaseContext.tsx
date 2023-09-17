@@ -14,7 +14,13 @@ interface BaseContextProps {
     type: 'success' | 'error';
     show: boolean;
   };
-  setSnackbarInfo: React.DispatchWithoutAction;
+  setSnackbarInfo: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: 'success' | 'error';
+      show: boolean;
+    }>
+  >;
   showSnackbar: (message: string, type: 'success' | 'error') => void;
   hideSnackbar: () => void;
 }
@@ -28,9 +34,13 @@ interface BaseProviderProps {
 }
 
 export const BaseProvider: React.FC<BaseProviderProps> = ({ children }) => {
-  const [snackbarInfo, setSnackbarInfo] = useState({
+  const [snackbarInfo, setSnackbarInfo] = useState<{
+    message: string;
+    type: 'success' | 'error';
+    show: boolean;
+  }>({
     message: '',
-    type: 'success',
+    type: 'success', // ここを'success'または'error'と明示的に指定
     show: false,
   });
 
