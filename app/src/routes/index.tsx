@@ -8,6 +8,7 @@ import AddRecipe from '../pages/AddRecipe';
 import DetailPage from '../pages/DetailPage';
 import EditPage from '../pages/EditPage';
 import SettingsPage from '../pages/SettingsPage';
+
 import { useAuth } from '@/context/AuthContext';
 import { RecipeProvider } from '@/context/RecipeContext';
 
