@@ -137,3 +137,8 @@ textarea {
   background-color: var(--userCardBg);
   color: var(--userCardText);
 }
+
+.search_input {
+  box-shadow: 0px 4px 8px 0 rgba(52, 60, 68, 0.15);
+  border: none;
+}

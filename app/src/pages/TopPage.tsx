@@ -8,6 +8,7 @@ import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
+import SeatchItem from '@/components/molecules/SearchItem';
 
 const TopPage = () => {
   const { t } = useTranslation(['ui', 'error']);
@@ -15,6 +16,7 @@ const TopPage = () => {
   const { recipeList, removeRecipeById } = useRecipes();
   const { uid } = useAuth();
   const { showSnackbar } = useBase();
+  const [searchValue, setSearchValue] = useState('');
 
   const goToDetails = (id: string | undefined) => {
     // 詳細ページへの遷移処理（idはレシピのID）
@@ -57,9 +59,23 @@ const TopPage = () => {
     if (!id) return;
     return recipeList.find((recipe) => recipe.id === id)?.title;
   };
+
+  const sarchRecipe = (val: any) => {
+    console.log(val);
+    setSearchValue(val);
+
+    const result = recipeList.filter((recipe) => {
+      return recipe.title.includes(val);
+    });
+    console.log(result);
+  };
+
   return (
     <>
       <div className="page-wrap container mx-auto px-4 pb-[104px]">
+        <div className="mt-6">
+          <SeatchItem onChange={sarchRecipe} value={searchValue} />
+        </div>
         <div className="recipe_list mt-6">
           {recipeList.map((recipe) => (
             <div

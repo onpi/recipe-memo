@@ -35,7 +35,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export const storage = initializeApp.storage();
+// export const storage = initializeApp.storage();
 export {
   auth,
   createUserWithEmailAndPassword,
