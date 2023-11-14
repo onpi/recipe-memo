@@ -58,7 +58,11 @@ $dark5: #151515;
     --userCardText: #{$dark1};
   }
 }
-
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
 body {
   background-color: var(--mainBg);
 }
@@ -81,6 +85,10 @@ textarea {
 .custom_link {
   color: var(--baseLinkText);
   text-decoration: underline;
+}
+
+.navigation {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .navigation_color {
@@ -128,4 +136,9 @@ textarea {
 .user_card {
   background-color: var(--userCardBg);
   color: var(--userCardText);
+}
+
+.search_input {
+  box-shadow: 0px 4px 8px 0 rgba(52, 60, 68, 0.15);
+  border: none;
 }

@@ -2,19 +2,27 @@ import BottomNavigation from '../components/organism/BottomNavigation';
 import { useNavigate } from 'react-router-dom';
 import DotSvg from '@/components/atoms/DotSvg';
 import { useRecipes } from '../context/RecipeContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@/components/molecules/BaseModal';
 import RecipeHandlers from '@/handlers/recipeHandlers';
 import { useAuth } from '@/context/AuthContext';
 import { useBase } from '@/context/BaseContext';
 import { useTranslation } from 'react-i18next';
+import SeatchItem from '@/components/molecules/SearchItem';
+import { Recipe } from '@/types/recipe';
 
 const TopPage = () => {
   const { t } = useTranslation(['ui', 'error']);
   const navigate = useNavigate();
-  const { recipeList, removeRecipeById } = useRecipes();
+  const { recipeList, removeRecipeById } = useRecipes(); // マスターデータの取得
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]); // 表示するレシピのリスト
   const { uid } = useAuth();
   const { showSnackbar } = useBase();
+  const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    setFilteredRecipes(recipeList);
+  }, [recipeList]);
 
   const goToDetails = (id: string | undefined) => {
     // 詳細ページへの遷移処理（idはレシピのID）
@@ -57,11 +65,26 @@ const TopPage = () => {
     if (!id) return;
     return recipeList.find((recipe) => recipe.id === id)?.title;
   };
+  const filterRecipe = (val: any) => {
+    setSearchValue(val);
+    if (val) {
+      const filtered = recipeList.filter((recipe) =>
+        recipe.title.includes(val)
+      );
+      setFilteredRecipes(filtered);
+    } else {
+      setFilteredRecipes(recipeList);
+    }
+  };
+
   return (
     <>
       <div className="page-wrap container mx-auto px-4 pb-[104px]">
+        <div className="mt-6">
+          <SeatchItem onChange={filterRecipe} value={searchValue} />
+        </div>
         <div className="recipe_list mt-6">
-          {recipeList.map((recipe) => (
+          {filteredRecipes.map((recipe) => (
             <div
               key={recipe.id}
               className="recipe_item flex justify-between items-center py-3 px-2 shadow-md mt-4"

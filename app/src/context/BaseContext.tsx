@@ -54,8 +54,16 @@ export const BaseProvider: React.FC<BaseProviderProps> = ({ children }) => {
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark');
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) {
+        themeColor.setAttribute('content', '#303739');
+      }
     } else {
       document.documentElement.classList.remove('dark');
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) {
+        themeColor.setAttribute('content', '#ff9500');
+      }
     }
 
     // Handle language setting

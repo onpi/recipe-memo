@@ -20,6 +20,7 @@ import {
   updateDoc,
   deleteDoc,
 } from 'firebase/firestore';
+import 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -34,6 +35,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// export const storage = initializeApp.storage();
 export {
   auth,
   createUserWithEmailAndPassword,
